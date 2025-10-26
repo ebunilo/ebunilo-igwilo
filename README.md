@@ -1,17 +1,17 @@
 # ebunilo-igwilo
-# Hi there, I'm [Your Name]! 👋
+# Hi there, I'm Ebunilo Igwilo 👋
 
 ![Banner Image](your_banner_image_url_here)
 
 ## About Me 🚀
 
-I'm a passionate **[Your Job Title / Developer Role]** with experience in **[technologies you're proficient in]**. I love tackling complex problems, learning new skills, and collaborating with diverse teams to create innovative solutions.
+I'm a passionate **Cloud and DevOps Engineer** with experience in **Kubernetes, Docker, Terraform, Git-actions, Ansible, and AWS**. I love tackling complex problems, learning new skills, and collaborating with diverse teams to create innovative solutions.
 
-- 🌱 Currently learning: **[new technologies or skills you're currently learning]**
-- 🔭 Working on: **[current projects or side-projects]**
-- 🌍 Languages: **[programming languages and human languages you speak]**
-- 📫 How to reach me: **[your email address or other contact information]**
-- ⚡ Fun fact: **[a fun fact about yourself]**
+- 🌱 Currently learning: **Architecting Distributed Systems, Github Copilot, and Professional Backend Development using Django**
+- 🔭 Working on: **CI/CD Pipeline for Deploying App on AWS**
+- 🌍 Languages: **Bash, Python, HCL**
+- 📫 How to reach me: **ebuniloigwilo@gmail.com**
+- ⚡ Fun fact: **I have a Cat**
 
 ## My Skills 🧠
 
