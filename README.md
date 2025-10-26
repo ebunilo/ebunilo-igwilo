@@ -1,4 +1,4 @@
-# ebunilo-igwilo
+# My Profile
 # Hi there, I'm Ebunilo Igwilo 👋
 
 ![Banner Image](your_banner_image_url_here)
@@ -40,7 +40,7 @@ I'm a passionate **Cloud and DevOps Engineer** with experience in **Kubernetes, 
 ## Get in Touch 📬
 
 - **[Personal Website / Blog]**(your_website_or_blog_link)
-- **[LinkedIn]**(your_linkedin_profile_link)
-- **[Twitter]**(your_twitter_profile_link)
+- **[LinkedIn]**https://linkedin.com/in/ebunilo
+- **[Twitter]**https://twitter.com/ebuniloigwilo
 
 
