@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Backend Engineer | Calistus Igwilo</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">Calistus<span>.</span></a>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li class="dropdown">
+            <a href="#" class="nav-link dropdown-toggle active"
+              >Expertise <i class="fas fa-chevron-down"></i
+            ></a>
+            <ul class="dropdown-menu">
+              <li><a href="devops.html">DevOps Engineer</a></li>
+              <li><a href="ai-engineer.html">AI Engineer</a></li>
+              <li>
+                <a href="backend.html" class="active">Backend Engineer</a>
+              </li>
+            </ul>
+          </li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <section class="page-header">
+      <div class="container">
+        <div class="page-header-icon">
+          <i class="fas fa-server"></i>
+        </div>
+        <h1>Senior Backend Engineer</h1>
+        <p>Building robust APIs and scalable distributed systems</p>
+      </div>
+    </section>
+
+    <section class="profile-summary">
+      <div class="container">
+        <div class="summary-card">
+          <h2>Professional Summary</h2>
+          <p>
+            Results-driven Backend and DevOps Engineer with deep expertise in
+            designing, building, and deploying production-grade distributed
+            systems. Proven track record of architecting RESTful APIs,
+            implementing payment integrations, orchestrating containerized
+            microservices, and automating CI/CD pipelines. Passionate about
+            writing clean, maintainable code and building infrastructure that
+            scales.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="skills-detail-section">
+      <div class="container">
+        <h2 class="section-title">Technical Skills</h2>
+
+        <div class="skills-categories">
+          <div class="skill-box">
+            <h3><i class="fas fa-code"></i> Backend Development</h3>
+            <ul>
+              <li>Languages: Python 3.10+</li>
+              <li>Frameworks: Django 5.x, Django REST Framework</li>
+              <li>API Design: RESTful APIs, OpenAPI/Swagger (drf-yasg)</li>
+              <li>
+                Database: PostgreSQL (schema design, indexing, migrations)
+              </li>
+              <li>Async Processing: Celery, Redis</li>
+            </ul>
+          </div>
+
+          <div class="skill-box">
+            <h3><i class="fas fa-server"></i> DevOps & Infrastructure</h3>
+            <ul>
+              <li>Containerization: Docker, Docker Compose</li>
+              <li>CI/CD: GitHub Actions</li>
+              <li>Web Servers: Nginx (reverse proxy, SSL/TLS)</li>
+              <li>Process Management: Gunicorn</li>
+              <li>Security: Let's Encrypt SSL, secrets management</li>
+            </ul>
+          </div>
+
+          <div class="skill-box">
+            <h3><i class="fas fa-check-circle"></i> Development Practices</h3>
+            <ul>
+              <li>Version Control: Git, GitHub</li>
+              <li>Testing: Django test framework, unit testing</li>
+              <li>Code Quality: Flake8 linting, code reviews</li>
+              <li>Documentation: Swagger UI, ReDoc, Markdown</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-project">
+      <div class="container">
+        <h2 class="section-title">Featured Project</h2>
+        <div class="project-header">
+          <h3>ALX Travel App</h3>
+          <p>
+            A full-stack property management platform with end-to-end backend
+            and DevOps capabilities
+          </p>
+          <div class="project-links">
+            <a
+              href="https://travel.igwilo.com/swagger/"
+              target="_blank"
+              class="btn btn-secondary"
+            >
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+            <a
+              href="https://travel.igwilo.com/redoc/"
+              target="_blank"
+              class="btn btn-outline"
+            >
+              <i class="fas fa-book"></i> API Docs
+            </a>
+          </div>
+        </div>
+
+        <div class="architecture-diagram">
+          <!-- Placeholder for architecture diagram -->
+          <div class="diagram-placeholder">
+            <i class="fas fa-project-diagram"></i>
+            <span>Backend Architecture Diagram</span>
+            <p class="diagram-description">
+              Nginx → Gunicorn → Django REST API → PostgreSQL<br />
+              Redis ↔ Celery Worker for async processing
+            </p>
+          </div>
+        </div>
+
+        <div class="project-details">
+          <div class="detail-card">
+            <h4><i class="fas fa-code"></i> Backend Engineering</h4>
+            <ul>
+              <li>
+                RESTful API with CRUD for listings, bookings, users, reviews
+              </li>
+              <li>Payment integration with Chapa gateway</li>
+              <li>Dynamic pricing engine based on stay duration</li>
+              <li>Async email notifications with Celery & Redis</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-cogs"></i> DevOps Engineering</h4>
+            <ul>
+              <li>Docker with multi-stage builds and health checks</li>
+              <li>Docker Compose orchestration (web, db, redis, celery)</li>
+              <li>GitHub Actions CI/CD pipeline</li>
+              <li>Nginx with SSL/TLS via Let's Encrypt</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-credit-card"></i> Payment Integration</h4>
+            <ul>
+              <li>Payment initiation with hosted checkout</li>
+              <li>Transaction verification</li>
+              <li>Webhook handling for real-time updates</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-shield-alt"></i> Security</h4>
+            <ul>
+              <li>CSRF protection & CORS configuration</li>
+              <li>Secure headers implementation</li>
+              <li>Environment-based secrets management</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tech-stack">
+          <h4>Technical Implementation</h4>
+          <div class="tech-table">
+            <table>
+              <tr>
+                <th>Component</th>
+                <th>Technology</th>
+                <th>Purpose</th>
+              </tr>
+              <tr>
+                <td>API Framework</td>
+                <td>Django REST Framework</td>
+                <td>RESTful endpoints with serialization</td>
+              </tr>
+              <tr>
+                <td>Documentation</td>
+                <td>drf-yasg</td>
+                <td>Swagger/OpenAPI auto-generation</td>
+              </tr>
+              <tr>
+                <td>Database</td>
+                <td>PostgreSQL</td>
+                <td>Relational data with indexed queries</td>
+              </tr>
+              <tr>
+                <td>Task Queue</td>
+                <td>Celery + Redis</td>
+                <td>Async email processing</td>
+              </tr>
+              <tr>
+                <td>CI/CD</td>
+                <td>GitHub Actions</td>
+                <td>Automated test, build, deploy</td>
+              </tr>
+              <tr>
+                <td>Reverse Proxy</td>
+                <td>Nginx</td>
+                <td>SSL, caching, load balancing</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="strengths-section">
+      <div class="container">
+        <h2 class="section-title">Professional Strengths</h2>
+        <div class="strengths-grid">
+          <div class="strength-item">
+            <i class="fas fa-check"></i>
+            <span
+              >System Design – Architecting scalable, maintainable backend
+              systems</span
+            >
+          </div>
+          <div class="strength-item">
+            <i class="fas fa-check"></i>
+            <span
+              >API Development – Building well-documented, versioned REST
+              APIs</span
+            >
+          </div>
+          <div class="strength-item">
+            <i class="fas fa-check"></i>
+            <span
+              >Database Design – Modeling complex relationships with
+              PostgreSQL</span
+            >
+          </div>
+          <div class="strength-item">
+            <i class="fas fa-check"></i>
+            <span
+              >DevOps Automation – End-to-end CI/CD pipeline
+              implementation</span
+            >
+          </div>
+          <div class="strength-item">
+            <i class="fas fa-check"></i>
+            <span
+              >Containerization – Docker-first development and deployment</span
+            >
+          </div>
+          <div class="strength-item">
+            <i class="fas fa-check"></i>
+            <span
+              >Integration – Third-party API integration (payments,
+              webhooks)</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2>Need a Backend Engineer?</h2>
+        <p>Let's build robust, scalable systems together</p>
+        <a href="contact.html" class="btn btn-primary btn-large">Contact Me</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <h3>Calistus Igwilo</h3>
+            <p>DevOps | AI | Backend Engineer</p>
+          </div>
+          <div class="footer-links">
+            <a href="https://linkedin.com/in/calistus-igwilo" target="_blank"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a href="https://github.com/ebuniloigwilo" target="_blank"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a href="mailto:ebuniloigwilo@gmail.com"
+              ><i class="fas fa-envelope"></i
+            ></a>
+            <a href="https://wa.me/2348033417102" target="_blank"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Calistus Igwilo. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

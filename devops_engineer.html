@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevOps Engineer | Calistus Igwilo</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">Calistus<span>.</span></a>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li class="dropdown">
+            <a href="#" class="nav-link dropdown-toggle active"
+              >Expertise <i class="fas fa-chevron-down"></i
+            ></a>
+            <ul class="dropdown-menu">
+              <li><a href="devops.html" class="active">DevOps Engineer</a></li>
+              <li><a href="ai-engineer.html">AI Engineer</a></li>
+              <li><a href="backend.html">Backend Engineer</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <section class="page-header">
+      <div class="container">
+        <div class="page-header-icon">
+          <i class="fas fa-cloud"></i>
+        </div>
+        <h1>Senior DevOps Engineer</h1>
+        <p>
+          Building secure, scalable, and highly available cloud infrastructure
+        </p>
+      </div>
+    </section>
+
+    <section class="profile-summary">
+      <div class="container">
+        <div class="summary-card">
+          <h2>Professional Summary</h2>
+          <p>
+            Results-driven Senior DevOps Engineer with extensive experience
+            designing and implementing enterprise-grade cloud infrastructure,
+            CI/CD pipelines, and Kubernetes-based container orchestration
+            platforms. Proven expertise in building secure, scalable, and highly
+            available systems on AWS using Infrastructure as Code (IaC)
+            principles.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="skills-detail-section">
+      <div class="container">
+        <h2 class="section-title">Technical Expertise</h2>
+
+        <div class="skills-categories">
+          <div class="skill-box">
+            <h3><i class="fab fa-aws"></i> Cloud Platforms & Infrastructure</h3>
+            <ul>
+              <li>
+                AWS Services: EKS, EC2, RDS, VPC, Route53, S3, DynamoDB, ECR,
+                IAM
+              </li>
+              <li>
+                Infrastructure as Code: Terraform (modular architecture, remote
+                state)
+              </li>
+              <li>
+                Container Orchestration: Kubernetes (EKS), Helm Charts, NGINX
+                Ingress
+              </li>
+            </ul>
+          </div>
+
+          <div class="skill-box">
+            <h3><i class="fas fa-cogs"></i> DevOps & CI/CD</h3>
+            <ul>
+              <li>
+                CI/CD Pipelines: GitHub Actions (automated Terraform plan/apply)
+              </li>
+              <li>
+                Containerization: Docker (multi-stage builds, image
+                optimization)
+              </li>
+              <li>Security Scanning: OWASP Dependency Check, DefectDojo</li>
+              <li>GitOps: Kubernetes manifests, Helm-based deployments</li>
+            </ul>
+          </div>
+
+          <div class="skill-box">
+            <h3><i class="fas fa-shield-alt"></i> Security & Compliance</h3>
+            <ul>
+              <li>IAM & MFA Enforcement with custom policies</li>
+              <li>VPC design with public/private subnet isolation</li>
+              <li>Kubernetes Secrets management</li>
+              <li>Route53 & SSL/TLS certificate management</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-project">
+      <div class="container">
+        <h2 class="section-title">Featured Project</h2>
+        <div class="project-header">
+          <h3>Cloud Banking Platform Infrastructure</h3>
+          <p>
+            Production-grade, multi-environment AWS infrastructure for an online
+            banking application
+          </p>
+        </div>
+
+        <div class="architecture-diagram">
+          <!-- Placeholder for architecture diagram -->
+          <div class="diagram-placeholder">
+            <i class="fas fa-project-diagram"></i>
+            <span>AWS Architecture Diagram</span>
+            <p class="diagram-description">
+              VPC with public/private subnets, EKS cluster, RDS MySQL, NAT
+              Gateway, ALB/NLB, ECR, and Route53
+            </p>
+          </div>
+        </div>
+
+        <div class="project-details">
+          <div class="detail-card">
+            <h4>
+              <i class="fas fa-cubes"></i> Modular Terraform Infrastructure
+            </h4>
+            <ul>
+              <li>Reusable modules for VPC, EKS, RDS, and DNS</li>
+              <li>Remote state management with S3 and DynamoDB locking</li>
+              <li>Environment-specific configurations (dev, staging, prod)</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4>
+              <i class="fas fa-dharmachakra"></i> Kubernetes Platform (EKS)
+            </h4>
+            <ul>
+              <li>Managed EKS clusters with auto-scaling node groups</li>
+              <li>NGINX Ingress Controller via Helm</li>
+              <li>Namespace isolation and RBAC policies</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-database"></i> Database Infrastructure</h4>
+            <ul>
+              <li>RDS MySQL instances in private subnets</li>
+              <li>Security groups for access control</li>
+              <li>Automated backup and maintenance windows</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-rocket"></i> CI/CD & Automation</h4>
+            <ul>
+              <li>GitHub Actions for infrastructure deployment</li>
+              <li>Docker images with multi-stage builds</li>
+              <li>GitOps workflow for Kubernetes deployments</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics-section">
+      <div class="container">
+        <h2 class="section-title">Metrics & Impact</h2>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value">&lt; 30 min</div>
+            <div class="metric-label">Infrastructure Deployment Time</div>
+            <div class="metric-note">Reduced from days</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">100%</div>
+            <div class="metric-label">Environment Parity</div>
+            <div class="metric-note">Dev/Staging/Prod consistency</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">&lt; 15 min</div>
+            <div class="metric-label">Recovery Time Objective</div>
+            <div class="metric-note">IaC rebuild capability</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">Enforced</div>
+            <div class="metric-label">Security Compliance</div>
+            <div class="metric-note">MFA, Network Isolation</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2>Interested in DevOps Solutions?</h2>
+        <p>Let's discuss how I can help optimize your infrastructure</p>
+        <a href="contact.html" class="btn btn-primary btn-large">Contact Me</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <h3>Calistus Igwilo</h3>
+            <p>DevOps | AI | Backend Engineer</p>
+          </div>
+          <div class="footer-links">
+            <a href="https://linkedin.com/in/calistus-igwilo" target="_blank"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a href="https://github.com/ebuniloigwilo" target="_blank"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a href="mailto:ebuniloigwilo@gmail.com"
+              ><i class="fas fa-envelope"></i
+            ></a>
+            <a href="https://wa.me/2348033417102" target="_blank"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Calistus Igwilo. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

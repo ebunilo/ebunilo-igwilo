@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Calistus Igwilo</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">Calistus<span>.</span></a>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li class="dropdown">
+            <a href="#" class="nav-link dropdown-toggle"
+              >Expertise <i class="fas fa-chevron-down"></i
+            ></a>
+            <ul class="dropdown-menu">
+              <li><a href="devops.html">DevOps Engineer</a></li>
+              <li><a href="ai-engineer.html">AI Engineer</a></li>
+              <li><a href="backend.html">Backend Engineer</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html" class="nav-link active">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <section class="page-header">
+      <div class="container">
+        <h1>Get In Touch</h1>
+        <p>Let's discuss your next project</p>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h2>Let's Connect</h2>
+            <p>
+              I'm actively seeking opportunities as a Senior Backend Engineer,
+              DevOps Engineer, or AI Engineer where I can contribute to building
+              reliable, scalable systems.
+            </p>
+
+            <div class="contact-methods">
+              <a href="mailto:ebuniloigwilo@gmail.com" class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                  <h3>Email</h3>
+                  <p>ebuniloigwilo@gmail.com</p>
+                </div>
+              </a>
+
+              <a
+                href="https://linkedin.com/in/calistus-igwilo"
+                target="_blank"
+                class="contact-item"
+              >
+                <div class="contact-icon">
+                  <i class="fab fa-linkedin"></i>
+                </div>
+                <div class="contact-details">
+                  <h3>LinkedIn</h3>
+                  <p>linkedin.com/in/calistus-igwilo</p>
+                </div>
+              </a>
+
+              <a
+                href="https://wa.me/2348033417102"
+                target="_blank"
+                class="contact-item"
+              >
+                <div class="contact-icon">
+                  <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="contact-details">
+                  <h3>WhatsApp</h3>
+                  <p>+234 803 341 7102</p>
+                </div>
+              </a>
+
+              <a
+                href="https://github.com/ebuniloigwilo"
+                target="_blank"
+                class="contact-item"
+              >
+                <div class="contact-icon">
+                  <i class="fab fa-github"></i>
+                </div>
+                <div class="contact-details">
+                  <h3>GitHub</h3>
+                  <p>github.com/ebuniloigwilo</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="contact-form-container">
+            <h2>Send a Message</h2>
+            <form class="contact-form" id="contactForm">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  placeholder="Your name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  placeholder="your.email@example.com"
+                />
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  required
+                  placeholder="What's this about?"
+                />
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  required
+                  placeholder="Your message..."
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">
+                <i class="fas fa-paper-plane"></i> Send Message
+              </button>
+            </form>
+            <p class="form-note">
+              <i class="fas fa-info-circle"></i>
+              This form requires a backend service to function. For now, please
+              use the contact methods on the left.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="availability-section">
+      <div class="container">
+        <div class="availability-card">
+          <div class="availability-status">
+            <span class="status-indicator"></span>
+            <span>Available for new opportunities</span>
+          </div>
+          <h2>Looking For</h2>
+          <div class="roles-grid">
+            <div class="role-item">
+              <i class="fas fa-cloud"></i>
+              <span>Senior DevOps Engineer</span>
+            </div>
+            <div class="role-item">
+              <i class="fas fa-robot"></i>
+              <span>AI Engineer</span>
+            </div>
+            <div class="role-item">
+              <i class="fas fa-server"></i>
+              <span>Senior Backend Engineer</span>
+            </div>
+            <div class="role-item">
+              <i class="fas fa-cogs"></i>
+              <span>ML Infrastructure Engineer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <h3>Calistus Igwilo</h3>
+            <p>DevOps | AI | Backend Engineer</p>
+          </div>
+          <div class="footer-links">
+            <a href="https://linkedin.com/in/calistus-igwilo" target="_blank"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a href="https://github.com/ebuniloigwilo" target="_blank"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a href="mailto:ebuniloigwilo@gmail.com"
+              ><i class="fas fa-envelope"></i
+            ></a>
+            <a href="https://wa.me/2348033417102" target="_blank"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Calistus Igwilo. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
