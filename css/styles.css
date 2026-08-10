@@ -1636,3 +1636,139 @@ section {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== AI Twin Chat Widget ===== */
+.twin-chat-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent-gradient);
+  color: #fff;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  z-index: 2000;
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal);
+}
+
+.twin-chat-toggle:hover {
+  transform: scale(1.08);
+}
+
+.twin-chat-toggle .fa-comment-dots {
+  transition: opacity var(--transition-fast);
+}
+
+.twin-chat-toggle .fa-xmark {
+  display: none;
+}
+
+.twin-chat-toggle.active .fa-comment-dots {
+  display: none;
+}
+
+.twin-chat-toggle.active .fa-xmark {
+  display: block;
+}
+
+.twin-chat-panel {
+  position: fixed;
+  bottom: 96px;
+  right: 24px;
+  width: 380px;
+  height: 600px;
+  max-height: calc(100vh - 140px);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  z-index: 1999;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  pointer-events: none;
+  transition:
+    opacity var(--transition-normal),
+    transform var(--transition-normal);
+}
+
+.twin-chat-panel.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.twin-chat-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.twin-chat-panel__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.twin-chat-panel__title .status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 6px var(--success);
+}
+
+.twin-chat-panel__close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  transition: color var(--transition-fast);
+}
+
+.twin-chat-panel__close:hover {
+  color: var(--text-primary);
+}
+
+.twin-chat-panel iframe {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: var(--bg-primary);
+}
+
+@media (max-width: 480px) {
+  .twin-chat-panel {
+    right: 12px;
+    left: 12px;
+    bottom: 90px;
+    width: auto;
+    height: calc(100vh - 150px);
+  }
+
+  .twin-chat-toggle {
+    right: 16px;
+    bottom: 16px;
+  }
+}

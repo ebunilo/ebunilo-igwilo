@@ -167,6 +167,46 @@ function setActiveNavLink() {
 
 setActiveNavLink();
 
+// ===== AI Twin Chat Widget =====
+const twinToggle = document.querySelector(".twin-chat-toggle");
+const twinPanel = document.querySelector(".twin-chat-panel");
+const twinClose = document.querySelector(".twin-chat-panel__close");
+const twinIframe = document.querySelector(".twin-chat-panel iframe");
+const TWIN_CHAT_URL = "https://twin.igwilo.com";
+
+function openTwinChat() {
+  if (twinIframe && !twinIframe.src) {
+    twinIframe.src = TWIN_CHAT_URL;
+  }
+  twinPanel.classList.add("active");
+  twinToggle.classList.add("active");
+  twinToggle.setAttribute("aria-expanded", "true");
+}
+
+function closeTwinChat() {
+  twinPanel.classList.remove("active");
+  twinToggle.classList.remove("active");
+  twinToggle.setAttribute("aria-expanded", "false");
+}
+
+if (twinToggle && twinPanel) {
+  twinToggle.addEventListener("click", () => {
+    if (twinPanel.classList.contains("active")) {
+      closeTwinChat();
+    } else {
+      openTwinChat();
+    }
+  });
+
+  twinClose?.addEventListener("click", closeTwinChat);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && twinPanel.classList.contains("active")) {
+      closeTwinChat();
+    }
+  });
+}
+
 // ===== Console Easter Egg =====
 console.log(`
 ╔═══════════════════════════════════════════════════════════╗
