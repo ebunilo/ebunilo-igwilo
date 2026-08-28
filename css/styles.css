@@ -1163,6 +1163,36 @@ section {
   margin-bottom: 12px;
 }
 
+.timeline-content ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.timeline-content li {
+  color: var(--text-secondary);
+  padding-left: 16px;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.timeline-content li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent-secondary);
+}
+
+.timeline-result {
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+.timeline-result strong {
+  color: var(--accent-secondary);
+}
+
 /* ===== Certifications Section ===== */
 .certifications-section {
   background: var(--bg-secondary);
