@@ -90,6 +90,16 @@
                 Prompt Grounding & Hallucination Control: Constraining
                 narrative agents to a supplied data contract
               </li>
+              <li>
+                Function Calling & Tool-Use Loops: Hand-rolled, bounded
+                multi-round tool-call orchestration from raw streaming deltas
+                — no agent framework required
+              </li>
+              <li>
+                Retrieval-Free Grounding: Structured knowledge-base design as
+                a deliberate alternative to vector RAG, with a documented
+                path to embedding-based retrieval
+              </li>
             </ul>
           </div>
 
@@ -101,7 +111,8 @@
               <li>Google Agent Development Kit (ADK)</li>
               <li>LangChain / LlamaIndex</li>
               <li>Google Cloud AI Platform & Vertex AI</li>
-              <li>OpenAI Chat Completions API</li>
+              <li>OpenAI Chat Completions API (streaming & function calling)</li>
+              <li>Gradio: ChatInterface / Blocks for conversational AI UIs</li>
               <li>Wikipedia, arXiv, Google Search APIs</li>
             </ul>
           </div>
@@ -134,6 +145,14 @@
                 Dependency Injection for testable, network-free unit testing
               </li>
               <li>FastAPI / Starlette async web services</li>
+              <li>
+                Schema-First Data Modeling: Pydantic v2 typed models for
+                validated content and API pipelines
+              </li>
+              <li>
+                CI/CD Pipeline Design: GitHub Actions with SSH + rsync +
+                Docker Compose deploys, no managed PaaS required
+              </li>
             </ul>
           </div>
 
@@ -156,7 +175,201 @@
                 Defense-in-depth: upload size limits, domain allow-listing,
                 ephemeral tmpfs storage, non-root containers
               </li>
+              <li>
+                LLM Guardrails & Prompt-Injection Defense: pre-LLM regex
+                filtering for jailbreak/injection patterns and abuse, plus a
+                model-output heuristic fallback for imperfect tool-use
+                compliance
+              </li>
+              <li>
+                Session-Cost Governance: turn caps and tool-call round limits
+                to bound per-session LLM spend
+              </li>
             </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-project">
+      <div class="container">
+        <h2 class="section-title">Featured Project</h2>
+        <div class="project-header">
+          <h3>Medical Image Diagnosis</h3>
+          <p>
+            A layered multi-agent decision-support system that routes medical
+            images to specialized vision agents for radiology, dermatology,
+            and ophthalmology analysis
+          </p>
+          <div class="project-links">
+            <a href="https://medical.igwilo.com" target="_blank" class="btn btn-secondary">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+          </div>
+        </div>
+
+        <div class="architecture-diagram">
+          <div class="diagram-placeholder">
+            <i class="fas fa-diagram-project"></i>
+            <span>Layered Multi-Agent Pipeline</span>
+            <p class="diagram-description">
+              Orchestrator sequencing a domain router, specialist vision
+              agents, an adapter normalization layer, and a text-based
+              reporting/Q&A layer
+            </p>
+          </div>
+        </div>
+
+        <div class="project-details">
+          <div class="detail-card">
+            <h4>
+              <i class="fas fa-route"></i> Intelligent Routing
+            </h4>
+            <ul>
+              <li>Classifier agent selects the domain pipeline at runtime</li>
+              <li>Safe fallback to radiology for unrecognized labels</li>
+              <li>Explicit domain override skips routing entirely</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-microscope"></i> Specialist Vision Agents</h4>
+            <ul>
+              <li>Radiology, dermatology, and ophthalmology domain agents</li>
+              <li>Strict JSON-schema outputs with per-domain enums</li>
+              <li>Anti-corruption adapter layer normalizes results</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-notes-medical"></i> Grounded Reporting</h4>
+            <ul>
+              <li>Lay interpretation, clinical report, and contextual advice</li>
+              <li>Q&A grounded strictly in prior diagnostic JSON</li>
+              <li>Confidence-driven triage with a fail-safe escalation bias</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-lock"></i> Security-Conscious Deployment</h4>
+            <ul>
+              <li>Non-root container, tmpfs uploads, no pixel logging</li>
+              <li>Upload size limits and domain allow-listing at the API</li>
+              <li>Model registry with versioning and inference telemetry</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tech-stack">
+          <h4>Technologies Used</h4>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <span class="tech-category">AI/ML</span>
+              <span class="tech-value">OpenAI GPT-4o (vision + text), JSON-mode structured output</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">Backend</span>
+              <span class="tech-value">Python 3.11, FastAPI, uvicorn</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">Computer Vision</span>
+              <span class="tech-value">OpenCV, Pillow, pydicom (DICOM), CLAHE</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">DevOps</span>
+              <span class="tech-value">Multi-stage Docker builds, Docker Compose, non-root runtime</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-project">
+      <div class="container">
+        <h2 class="section-title">Featured Project</h2>
+        <div class="project-header">
+          <h3>AI Digital Twin</h3>
+          <p>
+            A production-deployed conversational AI chat interface that
+            role-plays a professional digital twin, grounded entirely in a
+            structured, version-controlled knowledge base
+          </p>
+          <div class="project-links">
+            <a href="https://twin.igwilo.com" target="_blank" class="btn btn-secondary">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+          </div>
+        </div>
+
+        <div class="architecture-diagram">
+          <div class="diagram-placeholder">
+            <i class="fas fa-comments"></i>
+            <span>Guardrailed Agentic Chat Loop</span>
+            <p class="diagram-description">
+              Regex input guardrail, streaming completion, bounded
+              function-calling loop, and a model-output heuristic fallback,
+              all grounded in a flattened YAML knowledge base
+            </p>
+          </div>
+        </div>
+
+        <div class="project-details">
+          <div class="detail-card">
+            <h4><i class="fas fa-book-open"></i> Retrieval-Free Grounding</h4>
+            <ul>
+              <li>Typed YAML knowledge base flattened into the system prompt</li>
+              <li>Deterministic grounding with no embedding or retrieval cost</li>
+              <li>Pydantic-validated documents with a path to future RAG</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-wrench"></i> Hand-Rolled Tool Use</h4>
+            <ul>
+              <li>Manual streaming completion and delta accumulation</li>
+              <li>Bounded, multi-round function-calling loop (max 6 rounds)</li>
+              <li>Lead capture and unanswered-question tools with real-time alerts</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-shield-halved"></i> Defense-in-Depth Guardrails</h4>
+            <ul>
+              <li>Pre-LLM regex filtering for prompt injection and abuse</li>
+              <li>Model-output heuristic fallback for imperfect tool-use compliance</li>
+              <li>Session-length and cost bounding on every conversation</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-rocket"></i> Lightweight CI/CD</h4>
+            <ul>
+              <li>GitHub Actions deploy over SSH with rsync</li>
+              <li>Remote Docker Compose rebuild on every push to main</li>
+              <li>Secrets injected at runtime, never baked into the image</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tech-stack">
+          <h4>Technologies Used</h4>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <span class="tech-category">AI/ML</span>
+              <span class="tech-value">OpenAI gpt-4o-mini, streaming + function calling</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">Backend</span>
+              <span class="tech-value">Python 3.12, Pydantic v2</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">UI</span>
+              <span class="tech-value">Gradio (ChatInterface / Blocks)</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">DevOps</span>
+              <span class="tech-value">Docker, GitHub Actions, SSH + rsync deploy</span>
+            </div>
           </div>
         </div>
       </div>
@@ -250,99 +463,6 @@
             <div class="tech-item">
               <span class="tech-category">DevOps</span>
               <span class="tech-value">Docker, Docker Compose</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="featured-project">
-      <div class="container">
-        <h2 class="section-title">Featured Project</h2>
-        <div class="project-header">
-          <h3>Medical Image Diagnosis</h3>
-          <p>
-            A layered multi-agent decision-support system that routes medical
-            images to specialized vision agents for radiology, dermatology,
-            and ophthalmology analysis
-          </p>
-          <div class="project-links">
-            <a href="https://medical.igwilo.com" target="_blank" class="btn btn-secondary">
-              <i class="fas fa-external-link-alt"></i> Live Demo
-            </a>
-          </div>
-        </div>
-
-        <div class="architecture-diagram">
-          <div class="diagram-placeholder">
-            <i class="fas fa-diagram-project"></i>
-            <span>Layered Multi-Agent Pipeline</span>
-            <p class="diagram-description">
-              Orchestrator sequencing a domain router, specialist vision
-              agents, an adapter normalization layer, and a text-based
-              reporting/Q&A layer
-            </p>
-          </div>
-        </div>
-
-        <div class="project-details">
-          <div class="detail-card">
-            <h4>
-              <i class="fas fa-route"></i> Intelligent Routing
-            </h4>
-            <ul>
-              <li>Classifier agent selects the domain pipeline at runtime</li>
-              <li>Safe fallback to radiology for unrecognized labels</li>
-              <li>Explicit domain override skips routing entirely</li>
-            </ul>
-          </div>
-
-          <div class="detail-card">
-            <h4><i class="fas fa-microscope"></i> Specialist Vision Agents</h4>
-            <ul>
-              <li>Radiology, dermatology, and ophthalmology domain agents</li>
-              <li>Strict JSON-schema outputs with per-domain enums</li>
-              <li>Anti-corruption adapter layer normalizes results</li>
-            </ul>
-          </div>
-
-          <div class="detail-card">
-            <h4><i class="fas fa-notes-medical"></i> Grounded Reporting</h4>
-            <ul>
-              <li>Lay interpretation, clinical report, and contextual advice</li>
-              <li>Q&A grounded strictly in prior diagnostic JSON</li>
-              <li>Confidence-driven triage with a fail-safe escalation bias</li>
-            </ul>
-          </div>
-
-          <div class="detail-card">
-            <h4><i class="fas fa-lock"></i> Security-Conscious Deployment</h4>
-            <ul>
-              <li>Non-root container, tmpfs uploads, no pixel logging</li>
-              <li>Upload size limits and domain allow-listing at the API</li>
-              <li>Model registry with versioning and inference telemetry</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="tech-stack">
-          <h4>Technologies Used</h4>
-          <div class="tech-grid">
-            <div class="tech-item">
-              <span class="tech-category">AI/ML</span>
-              <span class="tech-value">OpenAI GPT-4o (vision + text), JSON-mode structured output</span>
-            </div>
-            <div class="tech-item">
-              <span class="tech-category">Backend</span>
-              <span class="tech-value">Python 3.11, FastAPI, uvicorn</span>
-            </div>
-            <div class="tech-item">
-              <span class="tech-category">Computer Vision</span>
-              <span class="tech-value">OpenCV, Pillow, pydicom (DICOM), CLAHE</span>
-            </div>
-            <div class="tech-item">
-              <span class="tech-category">DevOps</span>
-              <span class="tech-value">Multi-stage Docker builds, Docker Compose, non-root runtime</span>
             </div>
           </div>
         </div>
