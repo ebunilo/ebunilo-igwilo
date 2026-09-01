@@ -75,9 +75,21 @@
                 Multi-Agent Systems: Design and orchestration of collaborative
                 AI agents
               </li>
-              <li>LLMs: Google Gemini, GPT, and other foundation models</li>
+              <li>LLMs: Google Gemini, GPT-4o, and other foundation models</li>
               <li>Agentic AI: Autonomous agents with reasoning and tool use</li>
               <li>Prompt Engineering: Crafting effective system prompts</li>
+              <li>
+                Structured Output Engineering: JSON-mode schemas, enum
+                constraints, fence stripping, and typed parse-failure handling
+              </li>
+              <li>
+                Multimodal Vision Agents: Image-to-diagnosis pipelines with
+                base64 payloads and per-agent token budgets
+              </li>
+              <li>
+                Prompt Grounding & Hallucination Control: Constraining
+                narrative agents to a supplied data contract
+              </li>
             </ul>
           </div>
 
@@ -89,7 +101,21 @@
               <li>Google Agent Development Kit (ADK)</li>
               <li>LangChain / LlamaIndex</li>
               <li>Google Cloud AI Platform & Vertex AI</li>
+              <li>OpenAI Chat Completions API</li>
               <li>Wikipedia, arXiv, Google Search APIs</li>
+            </ul>
+          </div>
+
+          <div class="skill-box">
+            <h3><i class="fas fa-eye"></i> Computer Vision & Medical Imaging</h3>
+            <ul>
+              <li>OpenCV & Pillow: format-agnostic decode/preprocess pipelines</li>
+              <li>DICOM handling with pydicom for medical pixel data</li>
+              <li>
+                CLAHE contrast enhancement confined to the LAB luminance
+                channel
+              </li>
+              <li>Deterministic resize/normalize/re-encode pipelines</li>
             </ul>
           </div>
 
@@ -100,6 +126,36 @@
               <li>Docker and Docker Compose for deployments</li>
               <li>Cloud-native application architecture</li>
               <li>Git workflows and collaborative development</li>
+              <li>
+                Design Patterns: Template Method, Strategy via structural
+                Protocols, Registry, anti-corruption layers
+              </li>
+              <li>
+                Dependency Injection for testable, network-free unit testing
+              </li>
+              <li>FastAPI / Starlette async web services</li>
+            </ul>
+          </div>
+
+          <div class="skill-box">
+            <h3><i class="fas fa-shield-halved"></i> AI Security & Observability</h3>
+            <ul>
+              <li>
+                LLM failure-mode handling: refusals, empty completions, and
+                malformed JSON surfaced distinctly
+              </li>
+              <li>
+                Model registry & telemetry: versioned logical models with
+                inference counts and latency tracking
+              </li>
+              <li>
+                Privacy-preserving observability: non-reversible content
+                fingerprints instead of raw payload logging
+              </li>
+              <li>
+                Defense-in-depth: upload size limits, domain allow-listing,
+                ephemeral tmpfs storage, non-root containers
+              </li>
             </ul>
           </div>
         </div>
@@ -194,6 +250,99 @@
             <div class="tech-item">
               <span class="tech-category">DevOps</span>
               <span class="tech-value">Docker, Docker Compose</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-project">
+      <div class="container">
+        <h2 class="section-title">Featured Project</h2>
+        <div class="project-header">
+          <h3>Medical Image Diagnosis</h3>
+          <p>
+            A layered multi-agent decision-support system that routes medical
+            images to specialized vision agents for radiology, dermatology,
+            and ophthalmology analysis
+          </p>
+          <div class="project-links">
+            <a href="https://medical.igwilo.com" target="_blank" class="btn btn-secondary">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+          </div>
+        </div>
+
+        <div class="architecture-diagram">
+          <div class="diagram-placeholder">
+            <i class="fas fa-diagram-project"></i>
+            <span>Layered Multi-Agent Pipeline</span>
+            <p class="diagram-description">
+              Orchestrator sequencing a domain router, specialist vision
+              agents, an adapter normalization layer, and a text-based
+              reporting/Q&A layer
+            </p>
+          </div>
+        </div>
+
+        <div class="project-details">
+          <div class="detail-card">
+            <h4>
+              <i class="fas fa-route"></i> Intelligent Routing
+            </h4>
+            <ul>
+              <li>Classifier agent selects the domain pipeline at runtime</li>
+              <li>Safe fallback to radiology for unrecognized labels</li>
+              <li>Explicit domain override skips routing entirely</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-microscope"></i> Specialist Vision Agents</h4>
+            <ul>
+              <li>Radiology, dermatology, and ophthalmology domain agents</li>
+              <li>Strict JSON-schema outputs with per-domain enums</li>
+              <li>Anti-corruption adapter layer normalizes results</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-notes-medical"></i> Grounded Reporting</h4>
+            <ul>
+              <li>Lay interpretation, clinical report, and contextual advice</li>
+              <li>Q&A grounded strictly in prior diagnostic JSON</li>
+              <li>Confidence-driven triage with a fail-safe escalation bias</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-lock"></i> Security-Conscious Deployment</h4>
+            <ul>
+              <li>Non-root container, tmpfs uploads, no pixel logging</li>
+              <li>Upload size limits and domain allow-listing at the API</li>
+              <li>Model registry with versioning and inference telemetry</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tech-stack">
+          <h4>Technologies Used</h4>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <span class="tech-category">AI/ML</span>
+              <span class="tech-value">OpenAI GPT-4o (vision + text), JSON-mode structured output</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">Backend</span>
+              <span class="tech-value">Python 3.11, FastAPI, uvicorn</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">Computer Vision</span>
+              <span class="tech-value">OpenCV, Pillow, pydicom (DICOM), CLAHE</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">DevOps</span>
+              <span class="tech-value">Multi-stage Docker builds, Docker Compose, non-root runtime</span>
             </div>
           </div>
         </div>
