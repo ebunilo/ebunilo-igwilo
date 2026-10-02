@@ -60,7 +60,8 @@
             implementing payment integrations, orchestrating containerized
             microservices, and automating CI/CD pipelines. Experienced in
             extending ERP platforms (Odoo) to turn real business operations
-            into correct, auditable accounting. Passionate about
+            into correct, auditable accounting, and in shipping
+            offline-first, multi-tenant SaaS products end to end. Passionate about
             writing clean, maintainable code and building infrastructure that
             scales.
           </p>
@@ -76,13 +77,26 @@
           <div class="skill-box">
             <h3><i class="fas fa-code"></i> Backend Development</h3>
             <ul>
-              <li>Languages: Python 3.10+</li>
-              <li>Frameworks: Django 5.x, Django REST Framework</li>
+              <li>Languages: Python 3.10+, TypeScript, SQL</li>
+              <li>
+                Frameworks: Django 5.x, Django REST Framework, FastAPI
+              </li>
               <li>API Design: RESTful APIs, OpenAPI/Swagger (drf-yasg)</li>
               <li>
-                Database: PostgreSQL (schema design, indexing, migrations)
+                Database: PostgreSQL (schema design, indexing, migrations),
+                SQLAlchemy 2.0, Alembic
               </li>
               <li>Async Processing: Celery, Redis</li>
+            </ul>
+          </div>
+
+          <div class="skill-box">
+            <h3><i class="fas fa-mobile-alt"></i> Frontend &amp; Offline-First</h3>
+            <ul>
+              <li>React 19, TypeScript, Vite, TanStack Query, Tailwind CSS</li>
+              <li>Installable PWAs: service workers, Workbox caching</li>
+              <li>Offline outbox: IndexedDB, idempotent ordered retries</li>
+              <li>Mobile-first, accessible UI for low-end Android over 3G</li>
             </ul>
           </div>
 
@@ -113,12 +127,117 @@
             <ul>
               <li>Version Control: Git, GitHub</li>
               <li>
-                Testing: Django &amp; Odoo test frameworks, freezegun,
-                permission tests
+                Testing: Django &amp; Odoo test frameworks, pytest + httpx,
+                freezegun, permission tests
               </li>
-              <li>Code Quality: Flake8 linting, code reviews</li>
+              <li>Code Quality: Flake8, Ruff, oxlint, code reviews</li>
               <li>Documentation: Swagger UI, ReDoc, Markdown</li>
             </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-project">
+      <div class="container">
+        <h2 class="section-title">Featured Project</h2>
+        <div class="project-header">
+          <h3>ClearPort: Customs Clearing &amp; Forwarding SaaS</h3>
+          <p>
+            A mobile-first, multi-tenant SaaS for Nigerian clearing &amp;
+            forwarding agents and customs-bonded terminals. It runs the whole
+            import-clearance lifecycle, from Form M to empty container return,
+            on a double-entry accounting core, and field staff can keep
+            working offline at the port
+          </p>
+          <div class="project-links">
+            <a
+              href="https://clearport.caltech-ltd.com"
+              target="_blank"
+              class="btn btn-secondary"
+            >
+              <i class="fas fa-external-link-alt"></i> Live App
+            </a>
+          </div>
+        </div>
+
+        <div class="architecture-diagram">
+          <div class="diagram-placeholder">
+            <i class="fas fa-ship"></i>
+            <span>Installable PWA → FastAPI → PostgreSQL</span>
+            <p class="diagram-description">
+              React 19 PWA with offline outbox → nginx (TLS) → Docker Compose:
+              nginx web · FastAPI API · PostgreSQL 16, deployed from GitHub
+              Actions via GHCR
+            </p>
+          </div>
+        </div>
+
+        <div class="project-details">
+          <div class="detail-card">
+            <h4><i class="fas fa-wifi"></i> Offline Sync, Exactly Once</h4>
+            <ul>
+              <li>Stage updates and photos queue in one ordered outbox (IndexedDB)</li>
+              <li>Every write carries an Idempotency-Key, so retries never double-post</li>
+              <li>4xx responses are dropped; network errors, 5xx and 401 keep the queue in order</li>
+              <li>Updates stay tied to the user who made them on shared phones</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-project-diagram"></i> Workflows as Data</h4>
+            <ul>
+              <li>Port Import (20 stages) and Bonded Import (25 stages)</li>
+              <li>Each stage declares its required documents, fields and permission</li>
+              <li>Overrides and reverts need their own permission and are audited</li>
+              <li>Demurrage, terminal storage and Form M expiry countdowns</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-balance-scale"></i> Double-Entry Accounting</h4>
+            <ul>
+              <li>Every business event maps to an explicit debit/credit posting</li>
+              <li>VAT 7.5% on fees only, WHT credits, immutable journals and reversals</li>
+              <li>Two-person refund approval and accounting period lock</li>
+              <li>7 financial reports, including job profitability and AR aging</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-user-shield"></i> Multi-Tenancy &amp; Access</h4>
+            <ul>
+              <li>Every tenant-owned row scoped by organization; other tenants get 404</li>
+              <li>45+ permission codes grouped into 12 editable roles</li>
+              <li>Own / branch / org data scope applied in the query layer</li>
+              <li>Audit log records who, when, and from which IP or GPS location</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tech-stack">
+          <h4>Technologies Used</h4>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <span class="tech-category">Backend</span>
+              <span class="tech-value">Python 3.13, FastAPI, SQLAlchemy 2.0, Alembic, Pydantic v2</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">Frontend</span>
+              <span class="tech-value">React 19, TypeScript, TanStack Query, Tailwind CSS, Workbox PWA</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">Database</span>
+              <span class="tech-value">PostgreSQL 16, NUMERIC money, unique constraints for idempotency</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">Testing</span>
+              <span class="tech-value">pytest + httpx end-to-end against real Postgres, Ruff, strict TypeScript</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">DevOps</span>
+              <span class="tech-value">Docker, Docker Compose, nginx, GitHub Actions, GHCR, Let's Encrypt</span>
+            </div>
           </div>
         </div>
       </div>
@@ -398,6 +517,20 @@
             <span
               >Financial Correctness – Double-entry accounting, locked periods,
               inventory valuation</span
+            >
+          </div>
+          <div class="strength-item">
+            <i class="fas fa-check"></i>
+            <span
+              >Offline-First Systems – Idempotent writes, ordered retries,
+              failure classification</span
+            >
+          </div>
+          <div class="strength-item">
+            <i class="fas fa-check"></i>
+            <span
+              >Multi-Tenant SaaS – Tenant isolation, RBAC with data scopes,
+              audit trails</span
             >
           </div>
         </div>

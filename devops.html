@@ -324,6 +324,34 @@
               </p>
             </div>
           </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>SaaS CI/CD &amp; Production Hosting (ClearPort)</h3>
+              <p class="timeline-date">Sole Engineer</p>
+              <p>
+                Built the delivery pipeline and production hosting for a
+                multi-tenant clearing &amp; forwarding SaaS (FastAPI, React PWA,
+                PostgreSQL).
+              </p>
+              <ul>
+                <li>CI on every push and PR: lint, migrations on an empty database, tests, type-check, production build</li>
+                <li>Multi-stage, non-root Docker images with health checks</li>
+                <li>Versioned images (sha-&lt;commit&gt;) pushed to GitHub Container Registry</li>
+                <li>Zero-touch deploy over SSH from main, with health-gated rollout</li>
+                <li>One-line rollback to an earlier image tag</li>
+                <li>Only one port published, bound to localhost behind nginx with Let's Encrypt wildcard TLS</li>
+                <li>Pipeline validates the strength of deployment secrets; persistent volumes and a backup procedure</li>
+              </ul>
+              <p class="timeline-result">
+                <strong>Results:</strong> Every merge to main ships
+                automatically to
+                <a href="https://clearport.caltech-ltd.com" target="_blank">clearport.caltech-ltd.com</a>,
+                and a bad release can be rolled back in one command.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
