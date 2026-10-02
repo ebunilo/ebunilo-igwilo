@@ -297,6 +297,33 @@
               </p>
             </div>
           </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>ERP Release Pipeline (Odoo 19 Fleet &amp; Finance Platform)</h3>
+              <p class="timeline-date">Solution Architect &amp; Sole Engineer</p>
+              <p>
+                Built a safe, one-command release process for custom Odoo
+                modules running in production for a haulage company.
+              </p>
+              <ul>
+                <li>Ran Odoo and PostgreSQL on Docker Compose, with the database password as a Docker secret</li>
+                <li>Kept custom code in its own private repo, pulled with a read-only deploy key</li>
+                <li>Refused to deploy uncommitted or unpushed code</li>
+                <li>Backed up every database before each release, keeping the last 10</li>
+                <li>Checked logs, registry load and module versions against manifests</li>
+                <li>Restarted only when every check passed, and printed the restore point on failure</li>
+                <li>Kept a separate training database and wrote down the restore procedure</li>
+              </ul>
+              <p class="timeline-result">
+                <strong>Results:</strong> Replaced hand-copied production
+                changes with automated deployments that back up first and
+                check their own result. Production always matches a commit on
+                GitHub.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

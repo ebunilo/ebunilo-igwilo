@@ -58,7 +58,9 @@
             designing, building, and deploying production-grade distributed
             systems. Proven track record of architecting RESTful APIs,
             implementing payment integrations, orchestrating containerized
-            microservices, and automating CI/CD pipelines. Passionate about
+            microservices, and automating CI/CD pipelines. Experienced in
+            extending ERP platforms (Odoo) to turn real business operations
+            into correct, auditable accounting. Passionate about
             writing clean, maintainable code and building infrastructure that
             scales.
           </p>
@@ -85,6 +87,17 @@
           </div>
 
           <div class="skill-box">
+            <h3><i class="fas fa-cubes"></i> ERP &amp; Business Systems</h3>
+            <ul>
+              <li>Odoo 19 ORM: models, inheritance, constraints, wizards</li>
+              <li>Accounting, Fleet, Inventory &amp; Stock Valuation modules</li>
+              <li>Security: access groups, record rules, multi-company</li>
+              <li>Reporting: QWeb PDF reports, pivot &amp; graph analytics</li>
+              <li>Data Migration: set-based SQL backfills, post-install hooks</li>
+            </ul>
+          </div>
+
+          <div class="skill-box">
             <h3><i class="fas fa-server"></i> DevOps & Infrastructure</h3>
             <ul>
               <li>Containerization: Docker, Docker Compose</li>
@@ -99,10 +112,104 @@
             <h3><i class="fas fa-check-circle"></i> Development Practices</h3>
             <ul>
               <li>Version Control: Git, GitHub</li>
-              <li>Testing: Django test framework, unit testing</li>
+              <li>
+                Testing: Django &amp; Odoo test frameworks, freezegun,
+                permission tests
+              </li>
               <li>Code Quality: Flake8 linting, code reviews</li>
               <li>Documentation: Swagger UI, ReDoc, Markdown</li>
             </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-project">
+      <div class="container">
+        <h2 class="section-title">Featured Project</h2>
+        <div class="project-header">
+          <h3>Fleet &amp; Finance Platform (Odoo 19)</h3>
+          <p>
+            Custom ERP modules for a haulage company that turn truck
+            dispatches, fuel purchases, driver cash advances, workshop
+            maintenance and spare-part control into correct accounting, with
+            profit tracked per truck
+          </p>
+        </div>
+
+        <div class="architecture-diagram">
+          <div class="diagram-placeholder">
+            <i class="fas fa-truck"></i>
+            <span>Operations → General Ledger</span>
+            <p class="diagram-description">
+              Dispatch · Sales · Vendor Bills · Stock Valuation → journal items
+              tagged per truck → Truck Ledger P&amp;L, Fuel Vendor Statements,
+              MD-approved spare parts
+            </p>
+          </div>
+        </div>
+
+        <div class="project-details">
+          <div class="detail-card">
+            <h4><i class="fas fa-gas-pump"></i> Fleet Dispatch &amp; Payables</h4>
+            <ul>
+              <li>Trip state machine: Draft → Dispatched → Returned → Done</li>
+              <li>Vendor bill for fuel and cash advance posted in the same transaction</li>
+              <li>Locked-period cancellations issue credit-note reversals</li>
+              <li>Parent-company fuel vendor statements with running balances</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-chart-line"></i> Per-Truck Profit &amp; Loss</h4>
+            <ul>
+              <li>Reads posted journal items, so it always reconciles with the P&amp;L</li>
+              <li>Truck required on transport sales orders and invoices</li>
+              <li>Workshop parts charged to trucks via perpetual stock valuation</li>
+              <li>SQL backfill brought historical trips into the ledger</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-user-check"></i> Spare Parts Approval</h4>
+            <ul>
+              <li>High-value parts held until the Managing Director approves</li>
+              <li>Shows time and km since the last replacement, from store or vendor</li>
+              <li>Server-side enforcement, self-approval prevention, auto re-approval</li>
+              <li>Chose this design after weighing five options</li>
+            </ul>
+          </div>
+
+          <div class="detail-card">
+            <h4><i class="fas fa-rocket"></i> Release Engineering</h4>
+            <ul>
+              <li>One-command deploy refuses uncommitted or unpushed code</li>
+              <li>Backs up every database before upgrading</li>
+              <li>Checks installed module versions before restarting</li>
+              <li>Docker Compose with Docker secrets; separate training database</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tech-stack">
+          <h4>Technologies Used</h4>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <span class="tech-category">Backend</span>
+              <span class="tech-value">Python 3, Odoo 19 ORM, XML, QWeb</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">Database</span>
+              <span class="tech-value">PostgreSQL 15, SQL backfills, pg_dump/pg_restore</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">Testing</span>
+              <span class="tech-value">31 automated tests: TransactionCase, freezegun, per-role users</span>
+            </div>
+            <div class="tech-item">
+              <span class="tech-category">DevOps</span>
+              <span class="tech-value">Docker Compose, Docker secrets, Bash, GitHub deploy keys</span>
+            </div>
           </div>
         </div>
       </div>
@@ -277,6 +384,20 @@
             <span
               >Integration – Third-party API integration (payments,
               webhooks)</span
+            >
+          </div>
+          <div class="strength-item">
+            <i class="fas fa-check"></i>
+            <span
+              >ERP Engineering – Extending Odoo with inheritance and hooks,
+              no core changes</span
+            >
+          </div>
+          <div class="strength-item">
+            <i class="fas fa-check"></i>
+            <span
+              >Financial Correctness – Double-entry accounting, locked periods,
+              inventory valuation</span
             >
           </div>
         </div>
