@@ -39,6 +39,7 @@ if (typedTextElement) {
     "AI Engineer",
     "Backend Developer",
     "Cloud Architect",
+    "Technical Trainer",
   ];
 
   let textIndex = 0;

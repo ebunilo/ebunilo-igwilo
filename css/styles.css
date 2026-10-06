@@ -921,6 +921,45 @@ section {
   color: var(--text-secondary);
 }
 
+.tech-table td a {
+  color: var(--accent-secondary);
+}
+
+.tech-table td a:hover {
+  color: var(--text-primary);
+}
+
+.inline-link {
+  color: var(--accent-secondary);
+  font-weight: 500;
+}
+
+.inline-link:hover {
+  color: var(--text-primary);
+}
+
+/* ===== Recordings Section ===== */
+.recordings-section {
+  background: var(--bg-primary);
+}
+
+.recordings-section .tech-table {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 40px;
+}
+
+.recordings-heading {
+  margin-bottom: 8px;
+}
+
+.recordings-note {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
 /* ===== Metrics Section ===== */
 .metrics-section {
   background: var(--bg-primary);
