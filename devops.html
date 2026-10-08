@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DevOps Engineer | Calistus Igwilo</title>
+    <title>Senior Cloud Architect &amp; DevOps Engineer | Calistus Igwilo</title>
     <link rel="stylesheet" href="css/styles.css" />
     <link
       rel="stylesheet"
@@ -43,12 +43,16 @@
         <div class="page-header-icon">
           <i class="fas fa-cloud"></i>
         </div>
-        <h1>DevOps Lead &amp; Cloud Platform Engineer</h1>
+        <h1>Senior Cloud Architect &amp; DevOps Engineer</h1>
         <p>
-          Designing, building, and operating highly available, secure, and
-          automated infrastructure platforms across cloud and on-prem
-          environments
+          I cut a production platform's cloud bill by 95%, from about $5,000 a
+          month on AWS to about $250, and rebuilt it as code.
         </p>
+        <div class="hero-buttons case-header-cta">
+          <a href="aws-migration.html" class="btn btn-primary"
+            >Read the case study <i class="fas fa-arrow-right"></i
+          ></a>
+        </div>
       </div>
     </section>
 
@@ -57,13 +61,15 @@
         <div class="summary-card">
           <h2>Professional Summary</h2>
           <p>
-            DevOps Lead and Cloud &amp; Platform Engineer with extensive
-            experience designing, building, and operating enterprise-grade
-            cloud infrastructure, CI/CD pipelines, and Kubernetes-based
-            container orchestration platforms. Proven leader in delivering
-            Kubernetes platforms, Infrastructure as Code, and security-first
-            architectures that enable engineering teams to ship reliably and
-            at scale on AWS and hybrid on-prem environments.
+            Senior Cloud Architect and DevOps Engineer who designs, builds, and
+            operates production infrastructure, CI/CD pipelines, and
+            Kubernetes platforms on AWS, dedicated cloud servers, and on-prem.
+            Most recently I recommended and led a social and payments
+            platform's exit from AWS, cutting its infrastructure bill by
+            <strong>95% (~$57k a year)</strong>. I migrated 16 microservices
+            and ~58,500 records with zero data loss, codified every server in
+            Ansible, and left the platform more secure and more redundant than
+            before.
           </p>
           <p>
             Strong background establishing DevOps best practices across
@@ -118,11 +124,11 @@
           </div>
           <div class="strength-item">
             <i class="fas fa-check"></i>
-            <span>Cost Optimization &amp; Capacity Planning</span>
+            <span>Cloud Cost Optimization (FinOps) &amp; Cloud Repatriation</span>
           </div>
           <div class="strength-item">
             <i class="fas fa-check"></i>
-            <span>Platform Reliability Engineering (SRE practices)</span>
+            <span>Observability &amp; SRE (Prometheus, Grafana, Loki)</span>
           </div>
           <div class="strength-item">
             <i class="fas fa-check"></i>
@@ -141,9 +147,14 @@
             <h3><i class="fab fa-aws"></i> Cloud Platforms & Infrastructure</h3>
             <ul>
               <li>
-                AWS Services: EKS, EC2, RDS, VPC, Route53, S3, DynamoDB, ECR,
-                IAM
+                AWS Services: EKS, EC2, ECS, ALB, RDS, VPC, Route53, S3,
+                DynamoDB, ECR, IAM, SQS/SNS, Secrets Manager
               </li>
+              <li>
+                Cloud migration and FinOps: AWS → Contabo, options analysis,
+                right-sizing (95% cost reduction)
+              </li>
+              <li>Edge: Cloudflare DNS, Load Balancer and proxy</li>
               <li>
                 Infrastructure as Code: Terraform (modular architecture, remote
                 state)
@@ -165,7 +176,10 @@
                 Containerization: Docker, Docker Compose (multi-stage builds,
                 image optimization)
               </li>
-              <li>Configuration Management: Ansible (automated server config)</li>
+              <li>
+                Configuration Management: Ansible (13-role production codebase,
+                Vault, check/diff dry runs, <code>serial</code> rolling deploys)
+              </li>
               <li>Security Scanning: OWASP Dependency Check, DefectDojo</li>
               <li>GitOps: Kubernetes manifests, Helm-based deployments</li>
             </ul>
@@ -176,7 +190,12 @@
             <ul>
               <li>Load Balancing: HAProxy, Nginx reverse proxy</li>
               <li>Virtualization: KVM, Proxmox (on-prem hypervisor platforms)</li>
-              <li>Databases: PostgreSQL, MySQL, Redis</li>
+              <li>Databases: PostgreSQL, MySQL, MongoDB, Redis</li>
+              <li>Messaging, discovery and storage: Kafka, Consul, MinIO</li>
+              <li>
+                Observability: Prometheus, Grafana, Loki, Grafana Alloy,
+                blackbox_exporter
+              </li>
               <li>Linux (Ubuntu) system administration &amp; hardening</li>
             </ul>
           </div>
@@ -185,6 +204,8 @@
             <h3><i class="fas fa-shield-alt"></i> Security & Compliance</h3>
             <ul>
               <li>IAM & MFA Enforcement with custom policies</li>
+              <li>Secrets: Ansible Vault, Spring Cloud Config encryption, credential rotation</li>
+              <li>Host hardening: UFW, Docker port-bypass mitigation, fail2ban, key-only SSH</li>
               <li>VPC design with public/private subnet isolation</li>
               <li>Kubernetes Secrets management & RBAC policies</li>
               <li>Route53 & SSL/TLS certificate management (Let's Encrypt)</li>
@@ -199,6 +220,37 @@
       <div class="container">
         <h2 class="section-title">Platform &amp; Infrastructure Experience</h2>
         <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <h3>AWS → Contabo Migration (LOUD Social &amp; Payments Platform)</h3>
+              <p class="timeline-date">
+                Senior Cloud Architect / DevOps Engineer · Loud Products
+                Limited · Aug – Oct 2026
+              </p>
+              <p>
+                Recommended and led the migration of a 16-microservice Spring
+                Boot platform off AWS, from the options analysis through to
+                production.
+              </p>
+              <ul>
+                <li>Audited the code and live AWS account; found the "managed" databases were self-hosted on one EC2 box in the wrong region</li>
+                <li>Designed a 5-node hybrid active-active topology behind a Cloudflare load balancer, with a private-only data tier</li>
+                <li>Codified every server in 13 idempotent Ansible roles with 6 Vault-encrypted secret stores</li>
+                <li>Migrated ~58,500 MySQL and MongoDB records and 5.1 GB of media (S3 → MinIO), every count verified</li>
+                <li>Built a GitHub Actions → Ansible pipeline with mandatory dry runs and rolling deploys</li>
+                <li>Fixed 16 pre-launch defects, including live payments routed to a sandbox and leaked cloud keys</li>
+                <li>Built Prometheus, Grafana and Loki observability with external uptime and TLS probes</li>
+              </ul>
+              <p class="timeline-result">
+                <strong>Results:</strong> Infrastructure cost cut by 95%
+                (~$5,000 → ~$250 a month), zero records lost, 3 public ports
+                per server.
+                <a href="aws-migration.html" class="inline-link">Read the full case study</a>.
+              </p>
+            </div>
+          </div>
+
           <div class="timeline-item">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
@@ -388,66 +440,44 @@
 
     <section class="featured-project">
       <div class="container">
-        <h2 class="section-title">Featured Project</h2>
-        <div class="project-header">
-          <h3>Cloud Banking Platform Infrastructure</h3>
-          <p>
-            Production-grade, multi-environment AWS infrastructure for an online
-            banking application
-          </p>
-        </div>
-
-        <div class="architecture-diagram">
-          <!-- Placeholder for architecture diagram -->
-          <div class="diagram-placeholder">
-            <i class="fas fa-project-diagram"></i>
-            <span>AWS Architecture Diagram</span>
-            <p class="diagram-description">
-              VPC with public/private subnets, EKS cluster, RDS MySQL, NAT
-              Gateway, ALB/NLB, ECR, and Route53
+        <h2 class="section-title">Featured Case Study</h2>
+        <p class="section-subtitle">
+          From recommendation to production, owned end to end
+        </p>
+        <div class="case-feature">
+          <div>
+            <span class="tech-category">Cloud architecture · Migration · FinOps</span>
+            <h3>Cutting a production platform's cloud bill by 95%</h3>
+            <p>
+              LOUD was paying AWS about $5,000 a month for what turned out to
+              be a single self-managed EC2 host in the wrong region. I
+              recommended leaving AWS, designed a 5-server architecture with
+              redundancy where it mattered, automated all of it with Ansible,
+              moved the data with zero loss, and fixed 16 security and
+              correctness problems along the way.
             </p>
-          </div>
-        </div>
-
-        <div class="project-details">
-          <div class="detail-card">
-            <h4>
-              <i class="fas fa-cubes"></i> Modular Terraform Infrastructure
-            </h4>
-            <ul>
-              <li>Reusable modules for VPC, EKS, RDS, and DNS</li>
-              <li>Remote state management with S3 and DynamoDB locking</li>
-              <li>Environment-specific configurations (dev, staging, prod)</li>
+            <ul class="tech-tags">
+              <li>Ansible</li>
+              <li>GitHub Actions</li>
+              <li>Docker Compose</li>
+              <li>Cloudflare</li>
+              <li>Nginx</li>
+              <li>Prometheus</li>
+              <li>Grafana</li>
+              <li>Loki</li>
+              <li>MinIO</li>
+              <li>Kafka</li>
+              <li>Spring Boot</li>
             </ul>
+            <a href="aws-migration.html" class="btn btn-primary"
+              >Read the case study <i class="fas fa-arrow-right"></i
+            ></a>
           </div>
-
-          <div class="detail-card">
-            <h4>
-              <i class="fas fa-dharmachakra"></i> Kubernetes Platform (EKS)
-            </h4>
-            <ul>
-              <li>Managed EKS clusters with auto-scaling node groups</li>
-              <li>NGINX Ingress Controller via Helm</li>
-              <li>Namespace isolation and RBAC policies</li>
-            </ul>
-          </div>
-
-          <div class="detail-card">
-            <h4><i class="fas fa-database"></i> Database Infrastructure</h4>
-            <ul>
-              <li>RDS MySQL instances in private subnets</li>
-              <li>Security groups for access control</li>
-              <li>Automated backup and maintenance windows</li>
-            </ul>
-          </div>
-
-          <div class="detail-card">
-            <h4><i class="fas fa-rocket"></i> CI/CD & Automation</h4>
-            <ul>
-              <li>GitHub Actions for infrastructure deployment</li>
-              <li>Docker images with multi-stage builds</li>
-              <li>GitOps workflow for Kubernetes deployments</li>
-            </ul>
+          <div class="case-feature-stats">
+            <div><strong>−95%</strong><span>Monthly cloud cost</span></div>
+            <div><strong>~$57k</strong><span>Saved per year</span></div>
+            <div><strong>0</strong><span>Records lost</span></div>
+            <div><strong>13</strong><span>Ansible roles</span></div>
           </div>
         </div>
       </div>
@@ -457,6 +487,21 @@
       <div class="container">
         <h2 class="section-title">Metrics & Impact</h2>
         <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value">−95%</div>
+            <div class="metric-label">Cloud Infrastructure Cost</div>
+            <div class="metric-note">~$5,000 → ~$250 a month after leaving AWS</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">16</div>
+            <div class="metric-label">Microservices Migrated</div>
+            <div class="metric-note">~58,500 records, zero lost</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">761 → 1</div>
+            <div class="metric-label">SQL Queries per User Load</div>
+            <div class="metric-note">Production crash fixed within hours</div>
+          </div>
           <div class="metric-card">
             <div class="metric-value">&lt; 30 min</div>
             <div class="metric-label">Infrastructure Deployment Time</div>
@@ -484,8 +529,8 @@
           </div>
           <div class="metric-card">
             <div class="metric-value">Zero</div>
-            <div class="metric-label">Data Loss Migration</div>
-            <div class="metric-note">Enterprise email platform cutover</div>
+            <div class="metric-label">Data Loss Migrations</div>
+            <div class="metric-note">Enterprise email and AWS platform cutovers</div>
           </div>
         </div>
       </div>

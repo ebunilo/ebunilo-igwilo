@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case Study: AWS to Contabo Migration | Calistus Igwilo</title>
+    <meta
+      name="description"
+      content="How I cut a production platform's cloud bill by 95%, from about $5,000 a month on AWS to about $250, by recommending and carrying out a full migration to self-managed infrastructure as code."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">Calistus<span>.</span></a>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li class="dropdown">
+            <a href="#" class="nav-link dropdown-toggle active"
+              >Expertise <i class="fas fa-chevron-down"></i
+            ></a>
+            <ul class="dropdown-menu">
+              <li><a href="devops.html" class="active">DevOps Engineer</a></li>
+              <li><a href="ai-engineer.html">AI Engineer</a></li>
+              <li><a href="backend.html">Backend Engineer</a></li>
+              <li><a href="training.html">Technical Trainer</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <section class="page-header case-header">
+      <div class="container">
+        <a href="devops.html" class="case-back"
+          ><i class="fas fa-arrow-left"></i> DevOps Engineer</a
+        >
+        <p class="case-eyebrow">Case study · Cloud architecture &amp; migration</p>
+        <h1>Cutting a production platform's cloud bill by 95%</h1>
+        <p>
+          I recommended and carried out a full migration of a 16-microservice
+          social and payments platform from AWS to self-managed infrastructure,
+          automated end to end with Ansible, with zero data loss and a smaller
+          attack surface than before.
+        </p>
+        <ul class="case-meta">
+          <li>
+            <span>Role</span>Senior Cloud Architect / DevOps Engineer (owned it
+            end to end)
+          </li>
+          <li><span>Client</span>Loud Products Limited (LOUD mobile app)</li>
+          <li><span>Period</span>August – October 2026</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="case-impact">
+      <div class="container">
+        <div class="case-cost">
+          <div class="case-cost-text">
+            <h2>From ~$5,000 to ~$250 a month</h2>
+            <p>
+              About <strong>$4,750 a month</strong>, or
+              <strong>~$57,000 a year</strong>, saved for a growing startup. The
+              new platform has more redundancy at the edge and a tighter
+              security posture than the one it replaced.
+            </p>
+          </div>
+          <figure class="cost-chart" aria-label="Monthly infrastructure cost before and after the migration">
+            <div class="cost-row" title="Before, on AWS: about $5,000 a month">
+              <span class="cost-label">Before · AWS</span>
+              <span class="cost-track"
+                ><span class="cost-bar cost-bar--before" style="width: 100%"></span
+              ></span>
+              <span class="cost-value">$5,000</span>
+            </div>
+            <div class="cost-row" title="After, on Contabo: about $250 a month">
+              <span class="cost-label">After · Contabo</span>
+              <span class="cost-track"
+                ><span class="cost-bar" style="width: 5%"></span
+              ></span>
+              <span class="cost-value">$250</span>
+            </div>
+            <figcaption>Monthly infrastructure cost (USD, approximate)</figcaption>
+          </figure>
+        </div>
+
+        <div class="metrics-grid case-metrics">
+          <div class="metric-card">
+            <div class="metric-value">−95%</div>
+            <div class="metric-label">Infrastructure cost</div>
+            <div class="metric-note">~$57k a year saved</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">16</div>
+            <div class="metric-label">Microservices migrated</div>
+            <div class="metric-note">18 running instances behind an API gateway</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">0</div>
+            <div class="metric-label">Records lost</div>
+            <div class="metric-note">~58,500 records and 5.1 GB of media, every count verified</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">13</div>
+            <div class="metric-label">Ansible roles</div>
+            <div class="metric-note">~2,900 lines; any server rebuildable from code</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">16</div>
+            <div class="metric-label">Pre-launch defects fixed</div>
+            <div class="metric-note">Incl. live payments routed to a sandbox</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">3</div>
+            <div class="metric-label">Public ports per server</div>
+            <div class="metric-note">22/80/443, confirmed by external scans</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container case-narrow">
+        <h2 class="case-heading"><span>01</span> The problem</h2>
+        <p>
+          LOUD's backend, 16 Spring Boot microservices with MySQL, MongoDB,
+          Redis, Kafka and Consul, ran on AWS for about
+          <strong>$5,000 a month</strong>. For a startup at LOUD's stage, that
+          was out of line with its traffic. The estate had also drifted:
+        </p>
+        <ul class="case-list">
+          <li>"Production" ran on the <code>staging</code> Spring profile.</li>
+          <li>
+            Every database shared one EC2 host in <code>us-east-1</code>, far
+            from an African user base.
+          </li>
+          <li>Deploys were hand-rolled SSH/SCP scripts copying JARs onto systemd units.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="case-section case-section--alt">
+      <div class="container">
+        <div class="case-narrow">
+          <h2 class="case-heading"><span>02</span> Audit first, then recommend</h2>
+          <p>
+            I audited the code and the live AWS account instead of relying on
+            existing documents. The audit overturned a key assumption: the
+            "managed" RDS, ElastiCache and MSK services didn't exist. Everything
+            was self-hosted on a single EC2 instance, so the company was paying
+            AWS prices without getting the benefits of managed services. That
+            changed the business case. I evaluated four options:
+          </p>
+        </div>
+        <div class="options-grid">
+          <div class="option-card">
+            <span class="option-num">Option 1</span>
+            <h3>Optimise in place</h3>
+            <p>CloudFront and Global Accelerator in front of the existing ALB.</p>
+            <p class="option-verdict">Faster, but no cheaper.</p>
+          </div>
+          <div class="option-card">
+            <span class="option-num">Option 2</span>
+            <h3>Lift and shift to af-south-1</h3>
+            <p>Move the same estate closer to users.</p>
+            <p class="option-verdict">Same cost model, same operational burden.</p>
+          </div>
+          <div class="option-card">
+            <span class="option-num">Option 3</span>
+            <h3>Re-platform to ECS Fargate</h3>
+            <p>Containers on a managed AWS runtime.</p>
+            <p class="option-verdict">More managed, but more expensive.</p>
+          </div>
+          <div class="option-card option-card--chosen">
+            <span class="option-num"
+              ><i class="fas fa-check-circle"></i> Recommended</span
+            >
+            <h3>Leave AWS for dedicated cloud VPS</h3>
+            <p>Contabo servers, with the operational gap filled by automation.</p>
+            <p class="option-verdict">Accepted by management: −95% cost.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container">
+        <div class="case-narrow">
+          <h2 class="case-heading"><span>03</span> Target architecture</h2>
+          <p>
+            A 5-node, hybrid active-active design: 46 vCPU and 170 GB RAM in
+            total. Redundancy goes where the blast radius is largest (the
+            gateway and config server), and the data tier is reachable only
+            over the private network.
+          </p>
+        </div>
+
+        <figure class="arch-diagram">
+          <p class="arch-hint"><i class="fas fa-arrows-left-right"></i> Scroll sideways to see the full diagram</p>
+          <div class="arch-scroll">
+            <svg
+              viewBox="0 0 960 610"
+              role="img"
+              aria-labelledby="arch-title arch-desc"
+            >
+              <title id="arch-title">LOUD platform target architecture</title>
+              <desc id="arch-desc">
+                Mobile apps reach a Cloudflare load balancer, which health-checks
+                and routes to two app nodes. Each app node runs Nginx, the
+                gateway and config services, and a share of the domain services.
+                Both app nodes reach a private network holding the database,
+                object storage and monitoring nodes.
+              </desc>
+              <defs>
+                <marker
+                  id="arrow"
+                  viewBox="0 0 10 10"
+                  refX="9"
+                  refY="5"
+                  markerWidth="7"
+                  markerHeight="7"
+                  orient="auto-start-reverse"
+                >
+                  <path d="M0,0 L10,5 L0,10 z" class="arch-arrowhead" />
+                </marker>
+              </defs>
+
+              <!-- Clients -->
+              <rect x="350" y="16" width="260" height="52" rx="10" class="arch-box" />
+              <text x="480" y="48" class="arch-title" text-anchor="middle">Mobile apps &amp; admin users</text>
+
+              <line x1="480" y1="68" x2="480" y2="104" class="arch-link" marker-end="url(#arrow)" />
+
+              <!-- Edge -->
+              <rect x="220" y="106" width="520" height="70" rx="10" class="arch-box arch-box--accent" />
+              <text x="480" y="136" class="arch-title" text-anchor="middle">Cloudflare DNS + Load Balancer</text>
+              <text x="480" y="160" class="arch-sub" text-anchor="middle">Health checks on both gateways · unhealthy node removed automatically</text>
+
+              <line x1="390" y1="176" x2="280" y2="226" class="arch-link" marker-end="url(#arrow)" />
+              <line x1="570" y1="176" x2="680" y2="226" class="arch-link" marker-end="url(#arrow)" />
+
+              <!-- App nodes -->
+              <rect x="100" y="228" width="340" height="156" rx="12" class="arch-box" />
+              <text x="124" y="260" class="arch-title">app1</text>
+              <text x="124" y="288" class="arch-sub">Nginx · TLS termination</text>
+              <text x="124" y="312" class="arch-strong">gateway + config (active-active)</text>
+              <text x="124" y="336" class="arch-sub">Identity &amp; commerce services</text>
+              <text x="124" y="360" class="arch-sub">Docker Compose · pinned images</text>
+
+              <rect x="520" y="228" width="340" height="156" rx="12" class="arch-box" />
+              <text x="544" y="260" class="arch-title">app2</text>
+              <text x="544" y="288" class="arch-sub">Nginx · TLS termination</text>
+              <text x="544" y="312" class="arch-strong">gateway + config (active-active)</text>
+              <text x="544" y="336" class="arch-sub">Content, social &amp; real-time services</text>
+              <text x="544" y="360" class="arch-sub">Docker Compose · pinned images</text>
+
+              <line x1="440" y1="306" x2="518" y2="306" class="arch-link arch-link--dashed" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+              <text x="480" y="296" class="arch-tiny" text-anchor="middle">Consul</text>
+
+              <line x1="270" y1="384" x2="270" y2="432" class="arch-link" marker-end="url(#arrow)" />
+              <line x1="690" y1="384" x2="690" y2="432" class="arch-link" marker-end="url(#arrow)" />
+
+              <!-- Private network -->
+              <rect x="30" y="434" width="900" height="160" rx="14" class="arch-zone" />
+              <text x="52" y="460" class="arch-zone-label">PRIVATE NETWORK ONLY · NO PUBLIC DATABASE ACCESS</text>
+
+              <rect x="52" y="476" width="272" height="100" rx="10" class="arch-box" />
+              <text x="72" y="504" class="arch-title">db</text>
+              <text x="304" y="504" class="arch-tag" text-anchor="end">no public IP</text>
+              <text x="72" y="530" class="arch-sub">MySQL · MongoDB · Redis</text>
+              <text x="72" y="554" class="arch-sub">Kafka/Zookeeper · Consul</text>
+
+              <rect x="344" y="476" width="272" height="100" rx="10" class="arch-box" />
+              <text x="364" y="504" class="arch-title">storage</text>
+              <text x="364" y="530" class="arch-sub">MinIO (S3-compatible)</text>
+              <text x="364" y="554" class="arch-sub">Public media path only via Nginx</text>
+
+              <rect x="636" y="476" width="272" height="100" rx="10" class="arch-box" />
+              <text x="656" y="504" class="arch-title">monitoring</text>
+              <text x="656" y="530" class="arch-sub">Prometheus · Grafana · Loki</text>
+              <text x="656" y="554" class="arch-sub">Alloy · blackbox probes</text>
+            </svg>
+          </div>
+          <figcaption>
+            Every server is built from Ansible roles and deployed through GitHub
+            Actions with a mandatory dry run before each apply.
+          </figcaption>
+        </figure>
+
+        <div class="project-details case-layers">
+          <div class="detail-card">
+            <h4><i class="fas fa-globe"></i> Edge</h4>
+            <ul>
+              <li>Cloudflare DNS and Load Balancer with gateway health checks on both app nodes</li>
+              <li>Unhealthy node removed automatically</li>
+              <li>Measured distribution of 13 / 17 across 30 requests</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-server"></i> App tier</h4>
+            <ul>
+              <li>Nginx terminates TLS (Let's Encrypt via Cloudflare DNS-01)</li>
+              <li>Gateway and config server run on both nodes</li>
+              <li>13 domain services split by domain affinity, routed across nodes via Consul</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-database"></i> Data &amp; storage</h4>
+            <ul>
+              <li>Databases on a node with no public IP and no Nginx</li>
+              <li>MinIO replaces S3; its admin console is never exposed</li>
+              <li>Health-gated startup and exporters for MySQL, MongoDB and Redis</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-balance-scale"></i> Documented trade-offs</h4>
+            <ul>
+              <li>Single-node DB, storage and monitoring, kept for cost</li>
+              <li>Hybrid active-active instead of full duplication on both nodes</li>
+              <li>Accepted in writing by the business as part of a risk register</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section case-section--alt">
+      <div class="container case-narrow">
+        <h2 class="case-heading"><span>04</span> How I delivered it</h2>
+        <p>
+          Discovery to a live public endpoint took about
+          <strong>10 days</strong> (11 to 20 September 2026). Observability,
+          CI/CD and hardening continued into October.
+        </p>
+        <ol class="case-steps">
+          <li>
+            <strong>Discovery and audit.</strong> Baselines of row, document and
+            object counts; Kafka, Consul and S3 sizing; an inventory of every
+            AWS dependency in the code.
+          </li>
+          <li>
+            <strong>Hardening.</strong> Base role, private-IP verification, UFW
+            default-deny, key-only SSH, fail2ban and named admin accounts.
+          </li>
+          <li>
+            <strong>Secrets.</strong> Rotated every credential and moved secrets
+            to Ansible Vault and Spring Cloud Config <code>{cipher}</code>
+            values.
+          </li>
+          <li>
+            <strong>Stateful infrastructure and monitoring.</strong> Pinned image
+            versions, health-gated startup, database exporters.
+          </li>
+          <li>
+            <strong>Object storage.</strong> MinIO deployed and seeded; eight
+            services' S3 clients re-pointed and proven by reading production
+            objects back byte for byte.
+          </li>
+          <li>
+            <strong>App services.</strong> Moved from JARs under systemd to
+            Docker Compose, deployed one host at a time with port and health
+            checks.
+          </li>
+          <li>
+            <strong>Data migration.</strong> Dumps, restores and count
+            reconciliation (41 MySQL tables, 37 MongoDB collections), with a
+            test-restored backup before each step.
+          </li>
+          <li>
+            <strong>Cutover.</strong> Cloudflare load balancing on the public API,
+            plus a compatibility path (wildcard certificate and an Nginx
+            <code>staging-</code> → <code>prod-</code> rewrite) so already
+            installed mobile apps kept working during store review.
+          </li>
+          <li>
+            <strong>Operate.</strong> CI/CD, central logging, external probes,
+            dashboards, and a written handover to the frontend team.
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container">
+        <div class="case-narrow">
+          <h2 class="case-heading"><span>05</span> What I built and fixed</h2>
+        </div>
+        <div class="project-details case-built">
+          <div class="detail-card">
+            <h4><i class="fas fa-code-branch"></i> Infrastructure as code &amp; CI/CD</h4>
+            <ul>
+              <li>13 idempotent Ansible roles: hardening, private networking, Docker, UFW, Nginx, Let's Encrypt, databases, MinIO, monitoring, logging, app services</li>
+              <li>6 Ansible Vault-encrypted secret stores</li>
+              <li>GitHub Actions → Ansible pipeline: mandatory <code>--check --diff</code> dry run, then a separate approved apply</li>
+              <li>Rolling deploys (<code>serial: 1</code>), a concurrency lock and post-deploy verification</li>
+              <li>Human approval gate kept without paying for GitHub Team/Enterprise</li>
+              <li>Retired the legacy SSH/SCP deploy pipeline</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-shield-alt"></i> Security</h4>
+            <ul>
+              <li>Found production running on test configuration and <strong>live payments pointed at the provider's sandbox</strong></li>
+              <li>Removed plaintext credentials from source, including an AWS access key in 7 places, and rotated every database and storage credential</li>
+              <li>Found that <strong>Docker-published ports bypass UFW</strong>, exposing databases; bound every port to loopback or the private IP</li>
+              <li>Closed public actuator and metrics endpoints on 12 services</li>
+              <li>Stopped an active brute-force campaign (339 SSH attempts in 10 minutes) with key-only SSH, fail2ban and per-engineer sudo accounts</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-chart-line"></i> Observability</h4>
+            <ul>
+              <li>Prometheus, Grafana, node_exporter and database exporters</li>
+              <li>blackbox_exporter for external uptime and TLS-expiry probes</li>
+              <li>Grafana Alloy and Loki for central logging</li>
+              <li>Docker log rotation on every host</li>
+              <li>Dashboards and datasources provisioned as code</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-fire-extinguisher"></i> Production incident</h4>
+            <ul>
+              <li>An Android home-screen crash after go-live, fixed within hours</li>
+              <li>Traced to a JPA entity with 19 eager collections and 20 MB base64 images stored in JSON rows</li>
+              <li>Users' JSON data went from ~68 MB to ~17 KB</li>
+              <li>A lazy-loading refactor cut SQL statements per user load from <strong>761 to 1</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <figure class="case-screenshot">
+          <a href="images/projects/grafana-services-overview-1600.jpg" target="_blank" rel="noopener">
+            <img
+              src="images/projects/grafana-services-overview-1600.jpg"
+              srcset="
+                images/projects/grafana-services-overview-800.jpg   800w,
+                images/projects/grafana-services-overview-1600.jpg 1600w
+              "
+              sizes="(max-width: 1240px) 100vw, 1160px"
+              width="1600"
+              height="842"
+              loading="lazy"
+              decoding="async"
+              alt="Grafana dashboard for the LOUD platform showing 16 services up, 0 down, p95 latency, error rate, and request rate charts by service and by outcome"
+            />
+          </a>
+          <figcaption>
+            The "LOUD services overview" Grafana dashboard, provisioned as code:
+            16 services up, 0 down, with request rate, p95 latency and error
+            rate per service, fed by Prometheus and Loki.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="case-section case-section--alt">
+      <div class="container">
+        <div class="case-narrow">
+          <h2 class="case-heading"><span>06</span> Engineering judgement</h2>
+        </div>
+        <div class="judgement-grid">
+          <div class="judgement-card">
+            <i class="fas fa-microscope"></i>
+            <h3>Verify, don't assume</h3>
+            <p>
+              Every claim was checked against the live system: external port
+              scans, JWT tests (no token, valid, expired, wrongly signed,
+              under-privileged) on 6 services on both nodes, measured load
+              balancing, and byte-for-byte object comparisons.
+            </p>
+          </div>
+          <div class="judgement-card">
+            <i class="fas fa-traffic-light"></i>
+            <h3>Ship safely without staging</h3>
+            <p>
+              With no staging tier, safety came from enforced dry runs,
+              serialised rollouts and post-apply checks, not from pretending
+              a staging tier existed.
+            </p>
+          </div>
+          <div class="judgement-card">
+            <i class="fas fa-code-merge"></i>
+            <h3>Remove hidden risk</h3>
+            <p>
+              I reconciled 287 production commits the migration branch was
+              missing, so recent features like Apple sign-in and a wallet fix
+              weren't silently lost.
+            </p>
+          </div>
+          <div class="judgement-card">
+            <i class="fas fa-file-alt"></i>
+            <h3>Documentation as a deliverable</h3>
+            <p>
+              A ~26,500-word migration record, a plain-English executive
+              summary, architecture docs with diagrams, logging and alerting
+              designs, a post-migration backlog and a cross-team handover.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container case-narrow">
+        <h2 class="case-heading"><span>07</span> What's next</h2>
+        <p>
+          A migration isn't finished at cutover. These items were open when
+          this case study was written, and I've listed them as designed or
+          planned rather than done:
+        </p>
+        <ul class="case-list">
+          <li>Alert routing: rules are designed and waiting on a Slack contact point.</li>
+          <li>Automated daily backups: restores were tested by hand at every step; scheduling is next.</li>
+          <li>Container image builds in CI: images are currently built on the host.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="case-section case-section--alt">
+      <div class="container">
+        <h2 class="section-title">Technology</h2>
+        <p class="section-subtitle">What this project used, by area</p>
+        <div class="tech-table case-tech">
+          <table>
+            <tbody>
+              <tr>
+                <th scope="row">Cloud &amp; edge</th>
+                <td>AWS (EC2, ALB, S3, IAM, MediaConvert, SQS/SNS, Secrets Manager), Contabo VPS and private networking, Cloudflare DNS and Load Balancer</td>
+              </tr>
+              <tr>
+                <th scope="row">Infrastructure as code</th>
+                <td>Ansible (roles, inventories, tags, <code>serial</code>, check/diff mode, Vault), Terraform (legacy AWS estate)</td>
+              </tr>
+              <tr>
+                <th scope="row">CI/CD</th>
+                <td>GitHub Actions (workflow_dispatch, concurrency groups, job summaries), plan/apply gating, rolling deploys, gitleaks, OWASP dependency check</td>
+              </tr>
+              <tr>
+                <th scope="row">Containers &amp; runtime</th>
+                <td>Docker, Docker Compose, Ubuntu Linux, Java 17, Spring Boot 3, Spring Cloud Gateway and Config</td>
+              </tr>
+              <tr>
+                <th scope="row">Networking &amp; TLS</th>
+                <td>Nginx reverse proxy, Let's Encrypt (DNS-01, wildcard), UFW, fail2ban</td>
+              </tr>
+              <tr>
+                <th scope="row">Data &amp; messaging</th>
+                <td>MySQL, MongoDB, Redis, Kafka/Zookeeper, Consul, MinIO</td>
+              </tr>
+              <tr>
+                <th scope="row">Observability</th>
+                <td>Prometheus, Grafana, Loki, Grafana Alloy, node_exporter, blackbox_exporter, mysqld/mongo/redis exporters</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2>Paying too much for the cloud?</h2>
+        <p>Let's talk about what your platform actually needs</p>
+        <a href="contact.html" class="btn btn-primary btn-large">Contact Me</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <h3>Calistus Igwilo</h3>
+            <p>DevOps | AI | Backend Engineer</p>
+          </div>
+          <div class="footer-links">
+            <a href="https://linkedin.com/in/calistus-igwilo" target="_blank"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a href="https://github.com/ebunilo" target="_blank"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a href="mailto:ebuniloigwilo@gmail.com"
+              ><i class="fas fa-envelope"></i
+            ></a>
+            <a href="https://wa.me/2348033417102" target="_blank"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Calistus Igwilo. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- AI Twin Chat Widget -->
+    <button
+      class="twin-chat-toggle"
+      aria-label="Chat with my AI Twin"
+      aria-expanded="false"
+    >
+      <i class="fa-solid fa-comment-dots"></i>
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="twin-chat-panel">
+      <div class="twin-chat-panel__header">
+        <span class="twin-chat-panel__title">
+          <span class="status-dot"></span>
+          Chat with my AI Twin
+        </span>
+        <button class="twin-chat-panel__close" aria-label="Close chat">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <iframe title="Calistus Igwilo AI Twin" loading="lazy"></iframe>
+    </div>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
