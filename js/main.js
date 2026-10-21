@@ -94,20 +94,51 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
-  contactForm.addEventListener("submit", function (e) {
+  const formStatus = document.getElementById("formStatus");
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+  const submitBtnHTML = submitBtn.innerHTML;
+
+  const showStatus = (message, type) => {
+    formStatus.textContent = message;
+    formStatus.className = `form-status form-status--${type}`;
+    formStatus.hidden = false;
+  };
+
+  contactForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    // Get form data
     const formData = new FormData(this);
-    const data = Object.fromEntries(formData);
+    // Use the sender's subject line as the email subject
+    formData.append("_subject", `Portfolio contact: ${formData.get("subject")}`);
+    formData.append("_replyto", formData.get("email"));
 
-    // Show feedback (since there's no backend)
-    alert(
-      "Thank you for your message! Since this is a static site, please use the email or WhatsApp links to contact me directly.",
-    );
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    formStatus.hidden = true;
 
-    // Reset form
-    this.reset();
+    try {
+      const response = await fetch(this.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || String(result.success) !== "true") {
+        throw new Error(result.message || "Request failed");
+      }
+
+      showStatus("Thanks! Your message has been sent. I'll get back to you soon.", "success");
+      this.reset();
+    } catch (err) {
+      showStatus(
+        "Sorry, your message couldn't be sent. Please email me directly at ebuniloigwilo@gmail.com.",
+        "error",
+      );
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = submitBtnHTML;
+    }
   });
 }
 

@@ -113,7 +113,20 @@
 
           <div class="contact-form-container">
             <h2>Send a Message</h2>
-            <form class="contact-form" id="contactForm">
+            <form
+              class="contact-form"
+              id="contactForm"
+              action="https://formsubmit.co/ajax/ebuniloigwilo@gmail.com"
+              method="POST"
+            >
+              <input
+                type="text"
+                name="_honey"
+                style="display: none"
+                tabindex="-1"
+                autocomplete="off"
+              />
+              <input type="hidden" name="_template" value="table" />
               <div class="form-group">
                 <label for="name">Name</label>
                 <input
@@ -158,11 +171,7 @@
                 <i class="fas fa-paper-plane"></i> Send Message
               </button>
             </form>
-            <p class="form-note">
-              <i class="fas fa-info-circle"></i>
-              This form requires a backend service to function. For now, please
-              use the contact methods on the left.
-            </p>
+            <p class="form-status" id="formStatus" role="status" hidden></p>
           </div>
         </div>
       </div>
