@@ -2063,6 +2063,10 @@ section {
   gap: 10px;
 }
 
+.case-list + p {
+  margin-top: 16px;
+}
+
 .case-list li {
   color: var(--text-secondary);
   padding-left: 20px;
@@ -2311,6 +2315,10 @@ section {
   border-radius: 16px;
   padding: 40px;
   box-shadow: var(--shadow-glow);
+}
+
+.case-feature + .case-feature {
+  margin-top: 32px;
 }
 
 .case-feature h3 {

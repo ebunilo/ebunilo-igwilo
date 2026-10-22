@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case Study: Alex Multi-Agent AI Platform | Calistus Igwilo</title>
+    <meta
+      name="description"
+      content="How I deployed and operated Alex, a five-agent AI financial planning SaaS on AWS serverless, and re-engineered it for provider-portable LLM routing, bounded agent execution, guardrails and explainability."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">Calistus<span>.</span></a>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li class="dropdown">
+            <a href="#" class="nav-link dropdown-toggle active"
+              >Expertise <i class="fas fa-chevron-down"></i
+            ></a>
+            <ul class="dropdown-menu">
+              <li><a href="devops.html">DevOps Engineer</a></li>
+              <li><a href="ai-engineer.html" class="active">AI Engineer</a></li>
+              <li><a href="backend.html">Backend Engineer</a></li>
+              <li><a href="training.html">Technical Trainer</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <section class="page-header case-header">
+      <div class="container">
+        <a href="ai-engineer.html" class="case-back"
+          ><i class="fas fa-arrow-left"></i> AI Engineer</a
+        >
+        <p class="case-eyebrow">Case study · Multi-agent AI · LLM engineering on AWS</p>
+        <h1>Running a five-agent AI financial planner in production</h1>
+        <p>
+          Alex is a multi-agent SaaS: users model their investment accounts,
+          then a team of cooperating AI agents classifies holdings, writes a
+          portfolio report, builds charts and runs retirement projections. An
+          autonomous research agent browses the web on a schedule to keep a
+          vector knowledge base current. I deployed, debugged and operated
+          every layer on AWS, and re-engineered the parts that broke under
+          real conditions.
+        </p>
+        <ul class="case-meta">
+          <li>
+            <span>Role</span>AI Engineer (deployed, debugged and operated every
+            layer)
+          </li>
+          <li><span>Project</span>Alex: Agentic Learning Equities eXplainer</li>
+          <li>
+            <span>Basis</span>Built on the Alex capstone curriculum (8
+            infrastructure guides), extended with my own engineering changes
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="case-impact">
+      <div class="container">
+        <div class="metrics-grid case-metrics">
+          <div class="metric-card">
+            <div class="metric-value">5 + 1</div>
+            <div class="metric-label">Cooperating AI agents</div>
+            <div class="metric-note">Orchestrator, 4 specialists, plus an autonomous research agent</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">~74s</div>
+            <div class="metric-label">End-to-end analysis</div>
+            <div class="metric-note">SQS-triggered pipeline: report, charts and retirement plan</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">1 line</div>
+            <div class="metric-label">To switch LLM provider</div>
+            <div class="metric-note">Config-driven LiteLLM routing: OpenAI or Bedrock</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">~30–60s</div>
+            <div class="metric-label">Research agent runtime</div>
+            <div class="metric-note">Down from 13+ turns and repeated timeouts</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">7</div>
+            <div class="metric-label">Terraform stacks</div>
+            <div class="metric-note">~100 resources, each layer deployable on its own</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">15</div>
+            <div class="metric-label">AWS services in production</div>
+            <div class="metric-note">Lambda, SQS, App Runner, SageMaker, S3 Vectors, Aurora and more</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container case-narrow">
+        <h2 class="case-heading"><span>01</span> The system</h2>
+        <p>
+          A user signs in with Clerk, adds accounts and positions, and asks
+          for an analysis. The request goes onto a queue so the API returns
+          immediately. A <strong>Planner</strong> agent picks it up, refreshes
+          live prices from Polygon.io and calls four specialists as tools:
+        </p>
+        <ul class="case-list">
+          <li><strong>Tagger</strong> classifies each instrument by asset class, region and sector.</li>
+          <li><strong>Reporter</strong> writes the portfolio report, drawing on the research knowledge base, and is scored by a separate judge.</li>
+          <li><strong>Charter</strong> produces chart data for the dashboard.</li>
+          <li><strong>Retirement</strong> combines LLM reasoning with a 500-run Monte Carlo simulation.</li>
+        </ul>
+        <p>
+          Every result is written back to the <code>jobs</code> table.
+          <code>job_id</code> is the correlation key across the queue, the
+          agents, the database and the traces.
+        </p>
+      </div>
+    </section>
+
+    <section class="case-section case-section--alt">
+      <div class="container">
+        <div class="case-narrow">
+          <h2 class="case-heading"><span>02</span> Architecture</h2>
+          <p>
+            Fully serverless and event-driven. Nothing runs, and little is
+            billed, until a user asks for an analysis or the research
+            schedule fires.
+          </p>
+        </div>
+        <figure class="arch-diagram">
+          <p class="arch-hint"><i class="fas fa-arrows-left-right"></i> Scroll sideways to see the full diagram</p>
+          <div class="arch-scroll">
+            <svg
+              viewBox="0 0 960 830"
+              role="img"
+              aria-labelledby="alex-arch-title alex-arch-desc"
+            >
+              <title id="alex-arch-title">Alex platform architecture</title>
+              <desc id="alex-arch-desc">
+                Users authenticate with Clerk and use a Next.js frontend on S3
+                and CloudFront. The frontend calls a FastAPI backend on Lambda
+                behind API Gateway, which stores data in Aurora Serverless and
+                puts analysis jobs on an SQS queue. A Planner agent consumes the
+                queue and calls four specialist agents: Tagger, Reporter,
+                Charter and Retirement, then writes results to Aurora. Every two
+                hours, EventBridge triggers a researcher agent on App Runner that
+                browses the web with Playwright MCP and ingests findings through
+                a SageMaker embedding endpoint into S3 Vectors, which the
+                Reporter searches.
+              </desc>
+              <defs>
+                <marker
+                  id="arrow"
+                  viewBox="0 0 10 10"
+                  refX="9"
+                  refY="5"
+                  markerWidth="7"
+                  markerHeight="7"
+                  orient="auto-start-reverse"
+                >
+                  <path d="M0,0 L10,5 L0,10 z" class="arch-arrowhead" />
+                </marker>
+              </defs>
+
+              <!-- Users -->
+              <rect x="180" y="16" width="300" height="52" rx="10" class="arch-box" />
+              <text x="330" y="48" class="arch-title" text-anchor="middle">Users · Clerk sign-in</text>
+              <line x1="330" y1="68" x2="330" y2="100" class="arch-link" marker-end="url(#arrow)" />
+
+              <!-- Frontend -->
+              <rect x="120" y="102" width="420" height="64" rx="10" class="arch-box arch-box--accent" />
+              <text x="330" y="130" class="arch-title" text-anchor="middle">Next.js 15 · S3 + CloudFront</text>
+              <text x="330" y="153" class="arch-sub" text-anchor="middle">Static export · JWT bearer token on every call</text>
+              <line x1="330" y1="166" x2="330" y2="198" class="arch-link" marker-end="url(#arrow)" />
+
+              <!-- API -->
+              <rect x="120" y="200" width="420" height="64" rx="10" class="arch-box" />
+              <text x="330" y="228" class="arch-title" text-anchor="middle">API Gateway → FastAPI on Lambda</text>
+              <text x="330" y="251" class="arch-sub" text-anchor="middle">~17 endpoints · JWKS-validated JWTs</text>
+
+              <!-- Aurora -->
+              <rect x="660" y="200" width="270" height="80" rx="10" class="arch-box" />
+              <text x="680" y="228" class="arch-title">Aurora Serverless v2</text>
+              <text x="680" y="250" class="arch-sub">PostgreSQL via RDS Data API</text>
+              <text x="680" y="270" class="arch-sub">No VPC needed from Lambda</text>
+              <line x1="540" y1="226" x2="658" y2="226" class="arch-link" marker-end="url(#arrow)" />
+
+              <!-- Queue -->
+              <line x1="330" y1="264" x2="330" y2="296" class="arch-link" marker-end="url(#arrow)" />
+              <text x="342" y="286" class="arch-tiny">POST /api/analyze</text>
+              <rect x="120" y="298" width="420" height="56" rx="10" class="arch-box" />
+              <text x="330" y="322" class="arch-title" text-anchor="middle">SQS queue + dead-letter queue</text>
+              <text x="330" y="343" class="arch-sub" text-anchor="middle">maxReceiveCount 3 · 910s visibility timeout</text>
+              <line x1="330" y1="354" x2="330" y2="392" class="arch-link" marker-end="url(#arrow)" />
+
+              <!-- Agent team -->
+              <rect x="30" y="394" width="600" height="230" rx="14" class="arch-zone" />
+              <text x="52" y="416" class="arch-zone-label">AGENT TEAM · OPENAI AGENTS SDK + LITELLM</text>
+              <rect x="56" y="428" width="548" height="58" rx="10" class="arch-box arch-box--accent" />
+              <text x="330" y="452" class="arch-title" text-anchor="middle">Planner (orchestrator Lambda)</text>
+              <text x="330" y="474" class="arch-sub" text-anchor="middle">Refreshes Polygon.io prices · calls specialists as tools</text>
+
+              <line x1="120" y1="486" x2="120" y2="518" class="arch-link" marker-end="url(#arrow)" />
+              <line x1="260" y1="486" x2="260" y2="518" class="arch-link" marker-end="url(#arrow)" />
+              <line x1="400" y1="486" x2="400" y2="518" class="arch-link" marker-end="url(#arrow)" />
+              <line x1="540" y1="486" x2="540" y2="518" class="arch-link" marker-end="url(#arrow)" />
+
+              <rect x="56" y="520" width="128" height="84" rx="10" class="arch-box" />
+              <text x="120" y="548" class="arch-title" text-anchor="middle">Tagger</text>
+              <text x="120" y="570" class="arch-sub" text-anchor="middle">Pydantic output</text>
+              <text x="120" y="590" class="arch-strong" text-anchor="middle">+ rationale</text>
+
+              <rect x="196" y="520" width="128" height="84" rx="10" class="arch-box" />
+              <text x="260" y="548" class="arch-title" text-anchor="middle">Reporter</text>
+              <text x="260" y="570" class="arch-sub" text-anchor="middle">Tools + RAG</text>
+              <text x="260" y="590" class="arch-strong" text-anchor="middle">+ LLM judge</text>
+
+              <rect x="336" y="520" width="128" height="84" rx="10" class="arch-box" />
+              <text x="400" y="548" class="arch-title" text-anchor="middle">Charter</text>
+              <text x="400" y="570" class="arch-sub" text-anchor="middle">Tool calling</text>
+              <text x="400" y="590" class="arch-strong" text-anchor="middle">+ guardrail</text>
+
+              <rect x="476" y="520" width="128" height="84" rx="10" class="arch-box" />
+              <text x="540" y="548" class="arch-title" text-anchor="middle">Retirement</text>
+              <text x="540" y="570" class="arch-sub" text-anchor="middle">Tool calling</text>
+              <text x="540" y="590" class="arch-strong" text-anchor="middle">+ Monte Carlo</text>
+
+              <!-- Results back to Aurora -->
+              <path d="M604,446 H646 V266 H658" fill="none" class="arch-link" marker-end="url(#arrow)" />
+              <text x="660" y="306" class="arch-tiny">results to jobs table, keyed by job_id</text>
+
+              <!-- Reporter searches the knowledge base -->
+              <path d="M822,718 V636 H260 V606" fill="none" class="arch-link arch-link--dashed" marker-end="url(#arrow)" />
+              <text x="560" y="656" class="arch-tiny" text-anchor="middle">semantic search for market insights</text>
+
+              <!-- Research pipeline -->
+              <rect x="30" y="680" width="900" height="134" rx="14" class="arch-zone" />
+              <text x="52" y="704" class="arch-zone-label">SCHEDULED RESEARCH · EVERY 2 HOURS</text>
+
+              <rect x="52" y="718" width="190" height="76" rx="10" class="arch-box" />
+              <text x="147" y="748" class="arch-title" text-anchor="middle">EventBridge</text>
+              <text x="147" y="772" class="arch-sub" text-anchor="middle">rate(2 hours) → Lambda</text>
+              <line x1="242" y1="756" x2="268" y2="756" class="arch-link" marker-end="url(#arrow)" />
+
+              <rect x="270" y="718" width="230" height="76" rx="10" class="arch-box arch-box--accent" />
+              <text x="385" y="748" class="arch-title" text-anchor="middle">Researcher agent</text>
+              <text x="385" y="772" class="arch-sub" text-anchor="middle">App Runner · Playwright MCP</text>
+              <line x1="500" y1="756" x2="526" y2="756" class="arch-link" marker-end="url(#arrow)" />
+
+              <rect x="528" y="718" width="180" height="76" rx="10" class="arch-box" />
+              <text x="618" y="748" class="arch-title" text-anchor="middle">Embeddings</text>
+              <text x="618" y="772" class="arch-sub" text-anchor="middle">SageMaker Serverless</text>
+              <line x1="708" y1="756" x2="734" y2="756" class="arch-link" marker-end="url(#arrow)" />
+
+              <rect x="736" y="718" width="172" height="76" rx="10" class="arch-box" />
+              <text x="822" y="748" class="arch-title" text-anchor="middle">S3 Vectors</text>
+              <text x="822" y="772" class="arch-sub" text-anchor="middle">Knowledge base</text>
+            </svg>
+          </div>
+          <figcaption>
+            Seven independent Terraform stacks provision every box above, so
+            each layer can be deployed or torn down on its own.
+          </figcaption>
+        </figure>
+
+        <div class="project-details case-layers">
+          <div class="detail-card">
+            <h4><i class="fas fa-desktop"></i> Frontend &amp; API</h4>
+            <ul>
+              <li>Next.js 15, React 19, TypeScript and Tailwind 4, exported statically to S3 and CloudFront</li>
+              <li>FastAPI on Lambda (Mangum) with ~17 endpoints and per-resource ownership checks</li>
+              <li>Clerk JWTs validated against the JWKS endpoint on every request</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-stream"></i> Async orchestration</h4>
+            <ul>
+              <li>SQS decouples the API from long agent runs</li>
+              <li>Dead-letter queue after 3 failed receives</li>
+              <li>Planner sized at 15 min / 2 GB, specialists at 5 min / 1 GB</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-database"></i> Data &amp; retrieval</h4>
+            <ul>
+              <li>Aurora Serverless v2 over the RDS Data API, so Lambdas need no VPC</li>
+              <li>Shared repository-style database library used by every agent and the API</li>
+              <li>S3 Vectors as a low-cost alternative to OpenSearch for semantic search</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-lock"></i> Security</h4>
+            <ul>
+              <li>Least-privilege IAM role per service</li>
+              <li>Secrets Manager for generated database credentials</li>
+              <li>API-key and usage-plan protection on the ingest API; S3 public-access blocks and encryption</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container">
+        <div class="case-narrow">
+          <h2 class="case-heading"><span>03</span> AI engineering</h2>
+        </div>
+        <div class="project-details case-built">
+          <div class="detail-card">
+            <h4><i class="fas fa-sitemap"></i> Multi-agent orchestration</h4>
+            <ul>
+              <li>Orchestrator–specialist pattern on the <strong>OpenAI Agents SDK</strong>: the Planner calls specialists as tools, each in its own Lambda</li>
+              <li>Typed dataclass run contexts pass <code>job_id</code> and <code>user_id</code> into tools without leaking them into prompts</li>
+              <li>Explicit <code>max_turns</code> budget per agent to bound every loop</li>
+              <li>Mock-Lambda mode runs the whole orchestration locally with no AWS calls</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-code-branch"></i> Structured outputs vs tool calling</h4>
+            <ul>
+              <li>A hard rule that each agent uses <strong>one or the other, never both</strong>, working around a real LiteLLM + Bedrock limitation</li>
+              <li>Tagger returns a validated Pydantic schema (<code>gt=0</code>, allocation breakdowns by asset class, region and sector)</li>
+              <li>Reporter, Charter and Retirement call tools against the database and the vector store</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-gavel"></i> LLM-as-a-judge quality gate</h4>
+            <ul>
+              <li>A separate Judge agent scores every report 0–100 through a structured <code>Evaluation</code> model</li>
+              <li>Scores attached to LangFuse spans for review</li>
+              <li>Reports below the quality threshold are flagged and rejected</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-globe"></i> MCP agent &amp; RAG</h4>
+            <ul>
+              <li>Researcher drives headless Chromium through the <strong>Playwright MCP server</strong>, containerised on App Runner</li>
+              <li>HuggingFace <code>all-MiniLM-L6-v2</code> on a SageMaker Serverless endpoint, concurrency tuned to the account quota</li>
+              <li>Ingestion and semantic search on <strong>Amazon S3 Vectors</strong>, read by the Reporter during analysis</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section case-section--alt">
+      <div class="container">
+        <div class="case-narrow">
+          <h2 class="case-heading"><span>04</span> Production problems I solved</h2>
+          <p>
+            These changes go beyond the base code and come from my own commit
+            history.
+          </p>
+        </div>
+        <div class="project-details case-built">
+          <div class="detail-card">
+            <h4><i class="fas fa-random"></i> Provider-portable LLM routing</h4>
+            <ul>
+              <li>Diagnosed a production blocker: Bedrock on-demand token quotas were effectively <strong>zero in every region tested</strong> (us-east-1, us-west-2, eu-central-1), and filed a quota increase</li>
+              <li>Rather than wait, removed the hard-coded <code>bedrock/</code> prefix from all five agents and the Judge</li>
+              <li>Model strings now come fully from config, and <strong>LiteLLM</strong> routes to OpenAI or Bedrock; existing env var names kept so deployed infrastructure needed no change</li>
+              <li>Verified afterwards: 5/5 local agent tests, 5/5 deployed-Lambda tests, and the full pipeline in ~74s</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-stopwatch"></i> Bounding a runaway agent</h4>
+            <ul>
+              <li>The researcher ignored soft limits ("1–2 pages MAX"), ran 13+ turns, hit 60s Playwright timeouts on cookie walls and pushed past App Runner's 120s limit</li>
+              <li>Rewrote the prompt as <strong>hard, countable rules</strong>: at most 1 navigate, 1 snapshot, exactly 1 ingest, no retries, at most 4 tool calls</li>
+              <li>Switched to a plain-HTML source, cut <code>max_turns</code> to 8 and raised MCP timeouts from 60s to 180s for cold starts</li>
+              <li>Found Chromium alone needs ~1.5 GB and scaled App Runner from 1 vCPU / 2 GB to <strong>2 vCPU / 4 GB</strong>, ending the navigation timeouts</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-shield-alt"></i> Guardrails &amp; explainability</h4>
+            <ul>
+              <li><strong>Output guardrail:</strong> a validator checks LLM-generated chart JSON before it is saved, with required fields per chart type, so malformed output fails fast instead of reaching the UI</li>
+              <li><strong>Schema-enforced reasoning:</strong> a <code>rationale</code> field declared <em>before</em> the allocation fields, so the model explains itself before it commits to numbers</li>
+              <li>Rationales logged to CloudWatch and traced in LangFuse for audit</li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <h4><i class="fas fa-box"></i> Builds &amp; operations</h4>
+            <ul>
+              <li>Fixed a macOS x86_64 build failure (no prebuilt <code>fastuuid</code> wheel) by moving heavy agent dependencies into an optional <code>uv</code> group installed only inside Docker</li>
+              <li>Lambdas built against the Lambda runtime image so native dependencies match the target</li>
+              <li>One-command deploy and destroy scripts, plus a written runbook with cost-aware teardown (Aurora flagged as the main cost driver)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container">
+        <div class="case-narrow">
+          <h2 class="case-heading"><span>05</span> Engineering judgement</h2>
+        </div>
+        <div class="judgement-grid">
+          <div class="judgement-card">
+            <i class="fas fa-ruler-combined"></i>
+            <h3>Reason about context windows</h3>
+            <p>
+              A Playwright MCP page snapshot can return 20–50k tokens, which
+              overflows a 128k context within a few turns. I chose
+              <code>gpt-4.1-mini</code> for its 1M-token context at low cost,
+              and only tool-capable models for MCP work.
+            </p>
+          </div>
+          <div class="judgement-card">
+            <i class="fas fa-plug"></i>
+            <h3>Design for vendor portability</h3>
+            <p>
+              Cross-region inference profiles, per-region model access and
+              Bedrock's model availability by region are real constraints. When
+              the provider was unavailable, the system moved to another one
+              without changing any infrastructure.
+            </p>
+          </div>
+          <div class="judgement-card">
+            <i class="fas fa-ban"></i>
+            <h3>Rules, not suggestions</h3>
+            <p>
+              Agents treat soft guidance as optional. Countable limits, turn
+              budgets and timeouts turned unpredictable agent behaviour into
+              bounded, predictable execution.
+            </p>
+          </div>
+          <div class="judgement-card">
+            <i class="fas fa-coins"></i>
+            <h3>Cost as a design input</h3>
+            <p>
+              S3 Vectors instead of OpenSearch, serverless inference for
+              embeddings, scale-to-zero compute, and teardown scripts that
+              remove each stack in dependency order.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section case-section--alt">
+      <div class="container case-narrow">
+        <h2 class="case-heading"><span>06</span> Testing &amp; observability</h2>
+        <ul class="case-list">
+          <li><strong>Agent tests</strong> run locally with mocked Lambda calls, then again against the deployed Lambdas.</li>
+          <li><strong>End-to-end test</strong> resets the database, puts a job on SQS and polls up to 5 minutes for a completed report.</li>
+          <li><strong>Load and infrastructure tests</strong> cover scale, multiple accounts, Aurora Data API connectivity and S3 Vectors ingest and search.</li>
+          <li><strong>LangFuse tracing</strong> via Logfire instrumentation captures every agent run, tool call and judge score, flushed explicitly at the end of each Lambda invocation.</li>
+          <li><strong>Two CloudWatch dashboards</strong>, AI model usage and agent performance, provisioned with Terraform, plus a local tool that streams live logs from every agent during a run.</li>
+          <li><strong>Exponential-backoff retries</strong> with <code>tenacity</code> on LLM rate-limit errors.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <div class="container">
+        <h2 class="section-title">Technology</h2>
+        <p class="section-subtitle">What this project used, by area</p>
+        <div class="tech-table case-tech">
+          <table>
+            <tbody>
+              <tr>
+                <th scope="row">AI &amp; LLM</th>
+                <td>OpenAI Agents SDK, LiteLLM, Amazon Bedrock (Nova Pro, Claude, OpenAI OSS via inference profiles), OpenAI GPT-4.1-mini, Model Context Protocol (Playwright MCP), Pydantic structured outputs, LLM-as-a-judge</td>
+              </tr>
+              <tr>
+                <th scope="row">Retrieval</th>
+                <td>HuggingFace Sentence Transformers, SageMaker Serverless Inference, Amazon S3 Vectors</td>
+              </tr>
+              <tr>
+                <th scope="row">Cloud</th>
+                <td>AWS Lambda, SQS, App Runner, ECR, API Gateway (REST &amp; HTTP), EventBridge Scheduler, Aurora Serverless v2 (Data API), S3, CloudFront, Secrets Manager, IAM, CloudWatch</td>
+              </tr>
+              <tr>
+                <th scope="row">Backend</th>
+                <td>Python 3.12, FastAPI, Mangum, boto3, tenacity, Polygon.io, <code>uv</code></td>
+              </tr>
+              <tr>
+                <th scope="row">Frontend</th>
+                <td>Next.js 15, React 19, TypeScript, Tailwind CSS 4, Recharts, react-markdown, Clerk</td>
+              </tr>
+              <tr>
+                <th scope="row">DevOps &amp; observability</th>
+                <td>Terraform (7 stacks, remote-state lookups), Docker (linux/amd64 cross-builds), LangFuse, Logfire, CloudWatch dashboards</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2>Taking an AI system to production?</h2>
+        <p>Let's talk about agents that are reliable, observable and affordable</p>
+        <a href="contact.html" class="btn btn-primary btn-large">Contact Me</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <h3>Calistus Igwilo</h3>
+            <p>DevOps | AI | Backend Engineer</p>
+          </div>
+          <div class="footer-links">
+            <a href="https://linkedin.com/in/calistus-igwilo" target="_blank"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a href="https://github.com/ebunilo" target="_blank"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a href="mailto:ebuniloigwilo@gmail.com"
+              ><i class="fas fa-envelope"></i
+            ></a>
+            <a href="https://wa.me/2348033417102" target="_blank"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Calistus Igwilo. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- AI Twin Chat Widget -->
+    <button
+      class="twin-chat-toggle"
+      aria-label="Chat with my AI Twin"
+      aria-expanded="false"
+    >
+      <i class="fa-solid fa-comment-dots"></i>
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="twin-chat-panel">
+      <div class="twin-chat-panel__header">
+        <span class="twin-chat-panel__title">
+          <span class="status-dot"></span>
+          Chat with my AI Twin
+        </span>
+        <button class="twin-chat-panel__close" aria-label="Close chat">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <iframe title="Calistus Igwilo AI Twin" loading="lazy"></iframe>
+    </div>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
